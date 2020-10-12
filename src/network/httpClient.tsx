@@ -1,3 +1,5 @@
+import {getError} from "./handleError";
+
 const stringify = (body) => {
     if (typeof body === 'string') {
         return body;
@@ -44,9 +46,6 @@ export default class HttpClient {
             body: this.bodyValue,
             credentials: 'same-origin',
         })
-            .catch((error) => {
-                console.log('error: ' + error);
-            })
-            .then(handleError);
+            .then(getError);
     }
 }
