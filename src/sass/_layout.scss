@@ -38,6 +38,7 @@ body {
             -webkit-box-shadow: none;
             -moz-box-shadow: none;
             box-shadow: none;
+            flex-grow: 1;
             &.form-field-login:focus {
               outline: none !important;
             }
@@ -48,22 +49,37 @@ body {
     }
   }
 
-  .button {
-    &.primary {
-      height: 50px;
-      font-size: 16px;
-      text-transform: uppercase;
-      outline: none;
-      border: none;
-      background-color: $secondary;
-      color: white;
+    .form-error{
+      color: red;
+      text-align: center;
+      font-size: 10px;
+    }
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    .button {
+      flex-grow: 1;
+      &.primary {
+        height: 50px;
+        font-size: 16px;
+        text-transform: uppercase;
+        outline: none;
+        border: none;
+        background-color: $secondary;
+        color: white;
+        margin-bottom: 20px;
 
-      &.primary:focus {
-        background-color: $primary;
-      }
+        &.primary:focus {
+          background-color: $primary;
+        }
 
-      &.primary:hover {
-        background-color: $primary;
+        &.primary:hover {
+          background-color: $primary;
+        }
+
+        &.primary:disabled {
+          color: #0f0f0f;
+        }
       }
     }
   }
