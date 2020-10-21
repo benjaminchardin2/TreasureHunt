@@ -5,8 +5,8 @@ const fr = {
     LETS_GO: 'C\'est parti',
   },
   home: {
-    JOIN: 'Rejoindre une chasse au trésor',
     CREATE: 'Créer une chasse au trésor',
+    LAUNCH: 'Lancer une chasse au trésor',
   },
 };
 
