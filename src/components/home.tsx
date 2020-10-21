@@ -1,0 +1,42 @@
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { I18n } from 'react-redux-i18n';
+import homebackground from '../img/homebackground.png';
+
+type Props = {
+    history: any,
+};
+
+type State = {};
+
+class Home extends React.Component<Props, State> {
+    state = {};
+
+    render() {
+      return (
+        <div className="page">
+          <div className="page-content">
+            <div className="home">
+              <div className="home-create">
+                <img
+                  alt="create"
+                  className="home-picture"
+                  src={homebackground}
+                />
+                <div className="button-group">
+                  <button
+                    className="button primary"
+                    type="button"
+                  >
+                    {I18n.t('home.CREATE')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+}
+
+export default withRouter(Home);

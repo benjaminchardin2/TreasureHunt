@@ -15,11 +15,12 @@
 
   .login-form {
     border: $border-light;
-    min-height:40%;
+    min-height: 40%;
     display: flex;
     align-items: center;
     flex-grow: 1;
     background-color: $grey-control;
+
     Form {
       margin-left: 10px;
       margin-right: 10px;
@@ -36,6 +37,23 @@
 
     .login-picture {
       width: 400px;
+    }
+  }
+
+  @media screen and (max-width: $desktop-width) {
+    .login-page {
+      flex-direction: column;
+    }
+
+    .login-image {
+      height: unset;
+      flex-grow: unset;
+      .login-picture {
+        width: 150px;
+      }
+    }
+    .login-form {
+      flex-grow: unset;
     }
   }
 }

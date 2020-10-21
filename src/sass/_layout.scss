@@ -84,6 +84,15 @@ body {
     }
   }
 
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    border: $border-light;
+  }
+
   @media screen and (min-width: $desktop-width) {
     .page-content {
       width: 94%;
