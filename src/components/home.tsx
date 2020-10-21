@@ -15,6 +15,7 @@ class Home extends React.Component<Props, State> {
     render() {
       return (
         <div className="page">
+            <div className="login-background">
           <div className="page-content">
             <div className="home">
               <div className="home-create">
@@ -34,6 +35,7 @@ class Home extends React.Component<Props, State> {
               </div>
             </div>
           </div>
+            </div>
         </div>
       );
     }
