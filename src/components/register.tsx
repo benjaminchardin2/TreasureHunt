@@ -17,7 +17,7 @@ class Register extends React.Component<Props, State> {
 
   onSubmit = (values) => {
     const login = { username: values.login, password: values.password, email: '' };
-    loginApi.login(login)
+    loginApi.register(login)
       .then((response) => response.json())
       .then((json) => {
         localStorage.setItem('token', json.token);

@@ -68,6 +68,7 @@ body {
         background-color: $secondary;
         color: white;
         margin-bottom: 20px;
+        margin-right: 20px;
 
         &.primary:focus {
           background-color: $primary;
@@ -81,12 +82,55 @@ body {
           color: #0f0f0f;
         }
       }
+
+      &.secondary {
+        height: 50px;
+        font-size: 16px;
+        text-transform: uppercase;
+        outline: none;
+        border: none;
+        background-color: $primary;
+        color: white;
+        margin-bottom: 20px;
+        margin-right: 20px;
+
+        &.secondary:focus {
+          border: $border-black;
+        }
+
+        &.secondary:hover {
+          border: $border-black;
+        }
+
+        &.secondary:disabled {
+          color: #0f0f0f;
+        }
+      }
     }
+  }
+
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    border: $border-light;
   }
 
   @media screen and (min-width: $desktop-width) {
     .page-content {
       width: 94%;
+    }
+  }
+
+  @media screen and (max-width: $desktop-width) {
+    .button-group {
+      flex-direction: column;
+
+      &.primary {
+        margin-right: unset;
+      }
     }
   }
 }
