@@ -2,7 +2,9 @@
   height: 100%;
   width: 100%;
   display: flex;
-  background-size: 192px 108px;
+  align-items: center;
+  justify-content: center;
+  background-size: 256px 108px;
   background-image: url("../img/wave.png");
 
   .login-page {
@@ -36,7 +38,7 @@
     justify-content: center;
 
     .login-picture {
-      width: 400px;
+      width: 350px;
     }
   }
 

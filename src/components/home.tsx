@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import homebackground from '../img/homebackground.png';
+import { TREASURE_HUNT_CREATION_ROUTE } from '../const';
 
 type Props = {
     history: any,
@@ -28,6 +29,7 @@ class Home extends React.Component<Props, State> {
                     <button
                       className="button primary"
                       type="button"
+                      onClick={() => { this.props.history.push(TREASURE_HUNT_CREATION_ROUTE); }}
                     >
                       {I18n.t('home.CREATE')}
                     </button>

@@ -22,10 +22,18 @@ class Clues(models.Model):
         return self.id
 
 
+class TreasureHuntInstance(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    treasureHunt = models.ForeignKey(TreasureHunt, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id
+
+
 class Participant(models.Model):
     team_name = models.CharField(max_length=100, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    treasure_hunt = models.ForeignKey(TreasureHunt, on_delete=models.CASCADE)
+    treasureHuntInstance = models.ForeignKey(TreasureHuntInstance, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.team_name
