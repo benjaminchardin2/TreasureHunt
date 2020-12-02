@@ -2,18 +2,27 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import { Field, Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
+import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import loginApi from '../network/loginApi';
-import pirate from '../img/pirate.png';
 
 type Props = {
     history: any,
 };
 
-type State = {};
+type State = {
+    initialValues: {
+        clues: any
+    }
+};
 
 class TreasureHuntCreation extends React.Component<Props, State> {
-    state = {};
+    state = {
+      initialValues: {
+        clues: [{}],
+      },
+    };
 
     onSubmit = (values) => {
       const login = { username: values.login, password: values.password };
@@ -32,15 +41,19 @@ class TreasureHuntCreation extends React.Component<Props, State> {
         <div className="page">
           <div className="page-content">
             <div className="login-background">
-              <div className="login-page">
-                <div className="login-form">
+              <div className="treasure-hunt-creation-page">
+                <div className="treasure-hunt-creation-form">
                   <Form
+                    initialValues={this.state.initialValues}
                     onSubmit={this.onSubmit}
+                    mutators={{
+                      ...arrayMutators,
+                    }}
                     render={(formRenderProps) => (
                       <form onSubmit={formRenderProps.handleSubmit}>
                         <div className="form-content">
-                          <h1>{I18n.t('register.REGISTER')}</h1>
-                          <div className="form-group">
+                          <h1>{I18n.t('treasurehunt.TITLE')}</h1>
+                          <div className="form-group treasure-hunt-creation-info">
                             <label className="form-label" htmlFor="login-input">
                               <FontAwesomeIcon icon="user" />
                             </label>
@@ -50,23 +63,48 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                               component="input"
                               className="form-field-login"
                               type="text"
-                              placeholder="login"
+                              placeholder={I18n.t('treasurehunt.form.TITLE')}
                               required
                             />
                           </div>
-                          <div className="form-group">
-                            <label className="form-label" htmlFor="password-input">
-                              <FontAwesomeIcon icon="key" />
-                            </label>
-                            <Field
-                              id="password-input"
-                              name="password"
-                              component="input"
-                              className="form-field-login"
-                              type="password"
-                              placeholder="password"
-                              required
-                            />
+                          <div className="clues-form-group">
+                            <FieldArray name="clues">
+                              {({ fields }) => fields.map((clues, index) => (
+                                <div key={clues}>
+                                  <div className="clues-input">
+                                    <div className="clues-description">
+                                      <div className="clues-field">
+                                        <label className="clues-label">
+                                          {`${I18n.t('treasurehunt.form.CLUES')} # ${index + 1}`}
+                                        </label>
+                                        <Field
+                                          name={`${clues}.message`}
+                                          component="textarea"
+                                          placeholder={I18n.t('treasurehunt.form.CLUES_MESSAGE_PLACEHOLDER')}
+                                        />
+                                      </div>
+                                      <div className="clues-label">
+                                        <Field
+                                          name={`${clues}.file`}
+                                          component="input"
+                                          type="file"
+                                        />
+                                          <span
+                                              onClick={() => fields.remove(index)}
+                                              style={{ cursor: 'pointer' }}
+                                          >
+                                          X
+                                        </span>
+                                      </div>
+
+                                    </div>
+                                    <div className="clues-file">
+                                      <embed />
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </FieldArray>
                           </div>
                           <div className="button-group">
                             <button

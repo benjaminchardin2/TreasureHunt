@@ -128,8 +128,10 @@ body {
     .button-group {
       flex-direction: column;
 
-      &.primary {
-        margin-right: unset;
+      .button {
+        &.primary {
+          margin-right: unset;
+        }
       }
     }
   }

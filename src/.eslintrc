@@ -4,7 +4,7 @@
     "sourceType": "module"
   },
   "extends": ["airbnb", "plugin:flowtype/recommended"],
-  "plugins": ["flowtype", "compat"],
+  "plugins": ["compat"],
   "rules": {
     "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
     "no-param-reassign": [2, { "props": false }],
