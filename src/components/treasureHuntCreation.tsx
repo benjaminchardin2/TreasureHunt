@@ -75,7 +75,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                     <div className="clues-description">
                                       <div className="clues-field">
                                         <label className="clues-label">
-                                          {`${I18n.t('treasurehunt.form.CLUES')} # ${index + 1}`}
+                                          {`${I18n.t('treasurehunt.form.CLUES')} #${index + 1}`}
                                         </label>
                                         <Field
                                           name={`${clues}.message`}
@@ -89,10 +89,10 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                           component="input"
                                           type="file"
                                         />
-                                          <span
-                                              onClick={() => fields.remove(index)}
-                                              style={{ cursor: 'pointer' }}
-                                          >
+                                        <span
+                                          onClick={() => fields.remove(index)}
+                                          style={{ cursor: 'pointer' }}
+                                        >
                                           X
                                         </span>
                                       </div>
@@ -105,6 +105,12 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                 </div>
                               ))}
                             </FieldArray>
+                            <button
+                              type="button"
+                              onClick={() => formRenderProps.form.mutators.push('clues', undefined)}
+                            >
+                              {I18n.t('treasurehunt.form.CLUES_ADD')}
+                            </button>
                           </div>
                           <div className="button-group">
                             <button

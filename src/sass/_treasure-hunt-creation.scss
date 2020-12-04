@@ -81,12 +81,26 @@
 
         .clues-input {
 
+          align-items: center;
           .clues-description {
+            align-items: start;
             display: flex;
             flex-direction: column;
 
+
             .clues-field {
               margin-right: 0;
+              width: 100%;
+              textarea {
+                width: 100%;
+                border: none;
+                overflow: auto;
+                outline: none;
+
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+              }
             }
 
             .clues-label {
