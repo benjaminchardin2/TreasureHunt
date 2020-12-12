@@ -37,6 +37,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        margin-top: 0.5rem;
 
         .clues-description {
           width: 90%;
@@ -53,53 +54,51 @@
             align-items: center;
 
             textarea {
+              width: 100%;
+              border: none;
+              overflow: auto;
+              outline: none;
 
+              -webkit-box-shadow: none;
+              -moz-box-shadow: none;
+              box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            }
+
+            .clues-label {
+              display: flex;
+              align-items: center;
+              padding: 5px;
+              margin-right: 0.5rem;
             }
           }
 
-          .clues-label {
+          .clues-file {
+            flex-grow: 1;
             display: flex;
             align-items: center;
-            padding: 5px;
-            margin-right: 0.5rem;
           }
-       }
-
-        .clues-file {
-          flex-grow: 1;
-          display: flex;
-          align-items: center;
         }
       }
     }
-  }
 
-  @media screen and (max-width: $desktop-width) {
-    Form {
-      .clues-form-group {
-        margin-right: unset;
+    @media screen and (max-width: $desktop-width) {
+      Form {
+        .clues-form-group {
+          margin-right: unset;
 
-        .clues-input {
+          .clues-input {
 
-          align-items: center;
-          .clues-description {
-            align-items: start;
-            display: flex;
-            flex-direction: column;
+            align-items: center;
+
+            .clues-description {
+              align-items: start;
+              display: flex;
+              flex-direction: column;
 
 
-            .clues-field {
-              margin-right: 0;
-              width: 100%;
-              textarea {
+              .clues-field {
+                margin-right: 0;
                 width: 100%;
-                border: none;
-                overflow: auto;
-                outline: none;
-
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
               }
             }
 

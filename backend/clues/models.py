@@ -5,29 +5,17 @@ User = get_user_model()
 
 
 class TreasureHunt(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.id
 
 
 class Clues(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     message = models.CharField(max_length=1500)
-    treasureHunt = models.ForeignKey(TreasureHunt, on_delete=models.CASCADE)
+    treasureHunt = models.ForeignKey(TreasureHunt, on_delete=models.CASCADE, related_name="clues")
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.id
 
 
 class TreasureHuntInstance(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     treasureHunt = models.ForeignKey(TreasureHunt, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.id
 
 
 class Participant(models.Model):
@@ -35,15 +23,8 @@ class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     treasureHuntInstance = models.ForeignKey(TreasureHuntInstance, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.team_name
-
 
 class AttributedClues(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     code = models.IntegerField()
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
     clue = models.ForeignKey(Clues, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.id

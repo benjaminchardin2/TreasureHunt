@@ -5,7 +5,8 @@ import { Field, Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import loginApi from '../network/loginApi';
+import loginApi from '../network/apis/loginApi';
+import creationApi from "../network/apis/creationApi";
 
 type Props = {
     history: any,
@@ -25,11 +26,9 @@ class TreasureHuntCreation extends React.Component<Props, State> {
     };
 
     onSubmit = (values) => {
-      const login = { username: values.login, password: values.password };
-      loginApi.login(login)
+      creationApi.create(values)
         .then((response) => response.json())
         .then((json) => {
-          localStorage.setItem('token', json.token);
         })
         .catch((error) => {
           console.log(`error: ${error}`);
@@ -59,7 +58,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                             </label>
                             <Field
                               id="login-input"
-                              name="login"
+                              name="name"
                               component="input"
                               className="form-field-login"
                               type="text"

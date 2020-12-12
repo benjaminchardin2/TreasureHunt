@@ -1,4 +1,4 @@
-import HttpClient from './httpClient';
+import HttpClient from '../httpClient';
 
 const loginApi = {
   register: (credentials: object) => new HttpClient('http://127.0.0.1:8000/api/register/', 'POST').jsonBody(credentials).execute(),
