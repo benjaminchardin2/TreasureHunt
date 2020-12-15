@@ -16,12 +16,11 @@ class CluesSerializer(serializers.Serializer):
 
 class TreasureHuntSerializer(serializers.Serializer):
     name = serializers.CharField(min_length=0)
-    clues = CluesSerializer(many=True)
     id = serializers.UUIDField()
 
     class Meta:
         model = TreasureHunt
-        fields = ('id', 'name', 'clues')
+        fields = ('id', 'name')
 
 
 class TreasureHuntSerializerCustom(serializers.Serializer):

@@ -5,8 +5,8 @@ import { Field, Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import loginApi from '../network/apis/loginApi';
-import creationApi from "../network/apis/creationApi";
+import treasureHuntApi from '../../network/apis/treasureHuntApi';
+import { Clues } from './treasureHuntTypes';
 
 type Props = {
     history: any,
@@ -14,19 +14,23 @@ type Props = {
 
 type State = {
     initialValues: {
-        clues: any
+        clues: Clues[]
     }
 };
 
 class TreasureHuntCreation extends React.Component<Props, State> {
     state = {
       initialValues: {
-        clues: [{}],
+        clues: [
+          {
+            message: 'hi',
+          },
+        ],
       },
     };
 
     onSubmit = (values) => {
-      creationApi.create(values)
+      treasureHuntApi.create(values)
         .then((response) => response.json())
         .then((json) => {
         })

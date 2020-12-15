@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import { Field, Form } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import loginApi from '../network/apis/loginApi';
-import pirateShip from '../img/pirateShip.png';
+import loginApi from '../../network/apis/loginApi';
+import pirateShip from '../../img/pirateShip.png';
 
 type Props = {
   history: any,

@@ -17,6 +17,7 @@ const fr = {
       CLUES_MESSAGE_PLACEHOLDER: 'Au sud du peuplier',
       CLUES_ADD: 'Ajouter un indice',
     },
+    LAUNCH: 'Lancer cette chasse au trésor',
   },
 };
 

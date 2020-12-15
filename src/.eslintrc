@@ -3,7 +3,7 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "extends": ["airbnb", "plugin:flowtype/recommended"],
+  "extends": ["airbnb"],
   "plugins": ["compat"],
   "rules": {
     "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
@@ -12,7 +12,17 @@
     "no-unused-vars": 0,
     "compat/compat": 2,
     "react/sort-comp": 0,
-    "react/default-props-match-prop-types": 0
+    "react/default-props-match-prop-types": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "env": {
     "browser": true
