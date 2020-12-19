@@ -43,6 +43,6 @@ class Participant(models.Model):
 class AttributedClues(models.Model):
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    code = models.CharField(max_length=4)
+    code = models.CharField(default=random_string, max_length=4)
     participant = models.ForeignKey(Participant, to_field='id', on_delete=models.CASCADE)
     clue = models.ForeignKey(Clues, to_field='id', on_delete=models.CASCADE)
