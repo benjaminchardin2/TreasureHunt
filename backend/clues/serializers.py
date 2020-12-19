@@ -5,13 +5,13 @@ import logging
 
 
 class CluesSerializer(serializers.Serializer):
+    file = serializers.FileField(max_length=1000,
+                                 allow_empty_file=True, ),
     message = serializers.CharField(min_length=0)
-    id = serializers.UUIDField()
-    code = serializers.CharField(min_length=0)
 
     class Meta:
         model = CluesModel
-        fields = ('id', 'message', 'code')
+        fields = ('id', 'message')
 
 
 class TreasureHuntSerializer(serializers.Serializer):
@@ -23,16 +23,8 @@ class TreasureHuntSerializer(serializers.Serializer):
         fields = ('id', 'name')
 
 
-class CluesSerializerCreation(serializers.Serializer):
-    message = serializers.CharField(min_length=0)
-
-    class Meta:
-        model = CluesModel
-        fields = ('message')
-
-
 class TreasureHuntSerializerCustom(serializers.Serializer):
-    clues = CluesSerializerCreation(many=True)
+    clues = CluesSerializer(many=True)
     name = serializers.CharField(min_length=0)
 
     def create(self, validated_data):
