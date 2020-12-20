@@ -1,5 +1,5 @@
 export type Clues = {
-    message: string,
+    message?: string,
     file?: File,
 };
 

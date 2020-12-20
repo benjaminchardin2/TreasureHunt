@@ -22,6 +22,7 @@ class Clues(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     message = models.CharField(max_length=1500)
     code = models.CharField(max_length=4, default=random_string)
+    file = models.FileField(default=None)
     treasureHunt = models.ForeignKey(TreasureHunt, to_field='id', on_delete=models.CASCADE, related_name="clues")
     created_at = models.DateTimeField(auto_now_add=True)
 

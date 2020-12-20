@@ -80,35 +80,34 @@
         }
       }
     }
+  }
 
-    @media screen and (max-width: $desktop-width) {
-      Form {
-        .clues-form-group {
-          margin-right: unset;
+  @media screen and (max-width: $desktop-width) {
+    Form {
+      .clues-form-group {
+        margin-right: unset;
 
-          .clues-input {
+        .clues-input {
+          align-items: center;
+          display: flex;
+          .clues-description {
+            align-items: start;
+            display: flex;
+            flex-direction: column;
 
-            align-items: center;
-
-            .clues-description {
-              align-items: start;
-              display: flex;
-              flex-direction: column;
-
-
-              .clues-field {
-                margin-right: 0;
-                width: 100%;
-              }
-            }
-
-            .clues-label {
-              margin-top: 0.5rem;
+            .clues-field {
               margin-right: 0;
+              width: 100%;
             }
+          }
+
+          .clues-label {
+            margin-top: 0.5rem;
+            margin-right: 0;
           }
         }
       }
     }
   }
 }
+

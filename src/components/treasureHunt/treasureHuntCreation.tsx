@@ -7,6 +7,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import treasureHuntApi from '../../network/apis/treasureHuntApi';
 import { Clues } from './treasureHuntTypes';
+import FileInput from "./FileInput";
 
 type Props = {
     history: any,
@@ -23,7 +24,6 @@ class TreasureHuntCreation extends React.Component<Props, State> {
       initialValues: {
         clues: [
           {
-            message: 'hi',
           },
         ],
       },
@@ -89,7 +89,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                       <div className="clues-label">
                                         <Field
                                           name={`${clues}.file`}
-                                          component="input"
+                                          component={FileInput}
                                           type="file"
                                         />
                                         <span
