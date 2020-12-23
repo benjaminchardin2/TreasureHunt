@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import { Clues, TreasureHunt } from './treasureHuntTypes';
 import treasureHuntApi from '../../network/apis/treasureHuntApi';
+import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
+import { HOME_PAGE_ROUTE } from '../../const';
 
 type Props = {
     history: any,
@@ -28,6 +30,18 @@ class TreasureHuntSelection extends React.Component<Props, State> {
         });
     }
 
+    handleInstanceCreation = (id: string) => {
+      treasureHuntInstanceApi
+        .create({ id })
+        .then((response) => response.json())
+        .then(() => {
+          this.props.history.push(HOME_PAGE_ROUTE);
+        })
+        .catch((error) => {
+          console.log(`error: ${error}`);
+        });
+    }
+
     render() {
       return (
         <div className="page">
@@ -40,7 +54,7 @@ class TreasureHuntSelection extends React.Component<Props, State> {
                       <div className="treasure-hunt-selection-box">
                         <h2 className="treasure-hunt-selection-box-text">{treasureHunt.name}</h2>
                         <div className="button-group">
-                          <button className="button primary">{I18n.t('treasurehunt.LAUNCH')}</button>
+                          <button className="button primary" onClick={() => this.handleInstanceCreation(treasureHunt.id)}>{I18n.t('treasurehunt.LAUNCH')}</button>
                         </div>
                       </div>
                     ))

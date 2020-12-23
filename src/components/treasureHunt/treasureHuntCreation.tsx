@@ -7,7 +7,8 @@ import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import treasureHuntApi from '../../network/apis/treasureHuntApi';
 import { Clues } from './treasureHuntTypes';
-import FileInput from "./FileInput";
+import FileInput from '../fileInput/FileInput';
+import { HOME_PAGE_ROUTE } from '../../const';
 
 type Props = {
     history: any,
@@ -32,7 +33,8 @@ class TreasureHuntCreation extends React.Component<Props, State> {
     onSubmit = (values) => {
       treasureHuntApi.create(values)
         .then((response) => response.json())
-        .then((json) => {
+        .then(() => {
+          this.props.history.push(HOME_PAGE_ROUTE);
         })
         .catch((error) => {
           console.log(`error: ${error}`);

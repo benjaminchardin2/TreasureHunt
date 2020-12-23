@@ -6,7 +6,7 @@ import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import Register from './components/user/register';
 import Login from './components/user/login';
-import home from './components/home';
+import home from './components/home/home';
 import {
   HOME_PAGE_ROUTE, LOGIN_PAGE_ROUTE, REGISTER_PAGE_ROUTE, TREASURE_HUNT_CREATION_ROUTE, TREASURE_HUNT_SELECTION_ROUTE,
 } from './const';

@@ -5,5 +5,5 @@ export type Clues = {
 
 export type TreasureHunt = {
     name: string,
-    uid: string
+    id: string
 };

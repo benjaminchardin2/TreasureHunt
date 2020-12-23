@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from clues.models import Clues as CluesModel, TreasureHunt
 
+from clues.models import TreasureHuntInstance
+
 
 class Base64ImageField(serializers.FileField):
     """
@@ -100,3 +102,12 @@ class TreasureHuntSerializerCustom(serializers.Serializer):
     class Meta:
         model = TreasureHunt
         fields = ('id', 'name', 'clues')
+
+class TreasureHuntInstanceSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+
+    def create(self, validated_data):
+        id = validated_data.pop('id')
+        treasureHunt = TreasureHunt.objects.get(id=id)
+        treasureHuntInstance = TreasureHuntInstance.objects.create(treasureHunt=treasureHunt)
+        return treasureHuntInstance
