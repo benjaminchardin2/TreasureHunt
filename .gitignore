@@ -12,7 +12,10 @@
 # production
 /build
 
-
+backend/clues/migrations/*
+backend/accounts/migrations/*
+backend/media/*
+backend/db.sqlite3
 
 # misc
 .DS_Store
