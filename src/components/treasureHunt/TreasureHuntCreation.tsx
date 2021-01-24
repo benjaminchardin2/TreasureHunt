@@ -31,10 +31,11 @@ class TreasureHuntCreation extends React.Component<Props, State> {
     };
 
     onSubmit = (values) => {
+      const { history } = this.props;
       treasureHuntApi.create(values)
         .then((response) => response.json())
         .then(() => {
-          this.props.history.push(HOME_PAGE_ROUTE);
+          history.push(HOME_PAGE_ROUTE);
         })
         .catch((error) => {
           console.log(`error: ${error}`);
@@ -42,6 +43,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
     };
 
     render() {
+      const { initialValues } = this.state;
       return (
         <div className="page">
           <div className="page-content">
@@ -49,7 +51,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
               <div className="treasure-hunt-creation-page">
                 <div className="treasure-hunt-creation-form">
                   <Form
-                    initialValues={this.state.initialValues}
+                    initialValues={initialValues}
                     onSubmit={this.onSubmit}
                     mutators={{
                       ...arrayMutators,

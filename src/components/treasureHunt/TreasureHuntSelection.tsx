@@ -31,7 +31,7 @@ class TreasureHuntSelection extends React.Component<Props, State> {
     }
 
     handleInstanceCreation = (id: string) => {
-    const {history} = this.props
+      const { history } = this.props;
       treasureHuntInstanceApi
         .create({ id })
         .then((response) => response.json())
@@ -44,7 +44,7 @@ class TreasureHuntSelection extends React.Component<Props, State> {
     }
 
     render() {
-    const { treasureHunts } = this.state
+      const { treasureHunts } = this.state;
       return (
         <div className="page">
           <div className="page-content">
