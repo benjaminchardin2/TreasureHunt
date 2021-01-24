@@ -6,7 +6,7 @@ import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import treasureHuntApi from '../../network/apis/treasureHuntApi';
-import { Clues } from './treasureHuntTypes';
+import { Clues } from './TreasureHuntTypes';
 import FileInput from '../fileInput/FileInput';
 import { HOME_PAGE_ROUTE } from '../../const';
 

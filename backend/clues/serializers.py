@@ -48,7 +48,7 @@ class Base64ImageField(serializers.FileField):
 
     def get_file_extension(self, decoded_file):
         from mimetypes import guess_extension, guess_type
-        extension = guess_extension(guess_type(decoded_file+';base64,')[0])
+        extension = guess_extension(guess_type(decoded_file + ';base64,')[0])
         extension = "jpg" if extension == "jpeg" else extension
 
         return extension
@@ -70,10 +70,12 @@ class CluesSerializer(serializers.ModelSerializer):
 class TreasureHuntSerializer(serializers.ModelSerializer):
     name = serializers.CharField(min_length=0)
     id = serializers.UUIDField()
+    clues = CluesSerializer(many=True, read_only=True)
 
     class Meta:
         model = TreasureHunt
-        fields = ('id', 'name')
+        fields = '__all__'
+        depth = 1
 
 
 class CluesCreationSerializer(serializers.Serializer):
@@ -103,11 +105,18 @@ class TreasureHuntSerializerCustom(serializers.Serializer):
         model = TreasureHunt
         fields = ('id', 'name', 'clues')
 
+
 class TreasureHuntInstanceSerializer(serializers.Serializer):
     id = serializers.UUIDField()
+    treasureHunt = TreasureHuntSerializer(read_only=True)
 
     def create(self, validated_data):
         id = validated_data.pop('id')
         treasureHunt = TreasureHunt.objects.get(id=id)
         treasureHuntInstance = TreasureHuntInstance.objects.create(treasureHunt=treasureHunt)
         return treasureHuntInstance
+
+    class Meta:
+        model = TreasureHuntInstance
+        fields = '__all__'
+        depth = 2
