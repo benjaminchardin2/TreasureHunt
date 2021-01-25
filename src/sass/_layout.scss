@@ -12,53 +12,67 @@ body {
       display: flex;
       width: 94%;
 
-      .form-content {
+      .login-background {
+        height: 100%;
+        width: 100%;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-size: 256px 108px;
+        background-image: url("../img/wave.png");
 
-        .form-group {
-          margin-bottom: 1rem;
+        .form-content {
           display: flex;
-          flex-direction: row;
-          align-items: center;
-          padding-bottom: 10px;
-          border-bottom: $border-light;
+          flex-direction: column;
 
-          &.form-group:focus-within {
-            border-bottom: $border-strong;
-          }
+          .form-group {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: $border-light;
 
-          .form-label {
-            margin-right: 10px;
-          }
-
-          .form-field-login {
-            border: none;
-            background-color: transparent;
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-            flex-grow: 1;
-            &.form-field-login:focus {
-              outline: none !important;
+            &.form-group:focus-within {
+              border-bottom: $border-strong;
             }
-          }
 
+            .form-label {
+              margin-right: 10px;
+            }
+
+            .form-field-login {
+              border: none;
+              background-color: transparent;
+              -webkit-box-shadow: none;
+              -moz-box-shadow: none;
+              box-shadow: none;
+              flex-grow: 1;
+
+              &.form-field-login:focus {
+                outline: none !important;
+              }
+            }
+
+          }
         }
       }
     }
   }
 
-    .form-error{
-      color: red;
-      text-align: center;
-      font-size: 10px;
-    }
+  .form-error {
+    color: red;
+    text-align: center;
+    font-size: 10px;
+  }
+
   .button-group {
     display: flex;
     flex-direction: row;
+
     .button {
       flex-grow: 1;
+
       &.primary {
         height: 50px;
         font-size: 16px;
@@ -132,6 +146,7 @@ body {
         &.primary {
           margin-right: unset;
         }
+
         &.secondary {
           margin-right: unset;
         }

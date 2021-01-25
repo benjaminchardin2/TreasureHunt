@@ -15,20 +15,23 @@ type State = {
 };
 
 class TreasureHuntSelection extends React.Component<Props, State> {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       treasureHunts: [],
     };
+  }
 
-    componentDidMount() {
-      treasureHuntApi
-        .get()
-        .then((response) => response.json())
-        .then((treasureHunts) => {
-          this.setState({
-            treasureHunts,
-          });
+  componentDidMount() {
+    treasureHuntApi
+      .get()
+      .then((response) => response.json())
+      .then((treasureHunts) => {
+        this.setState({
+          treasureHunts,
         });
-    }
+      });
+  }
 
     handleInstanceCreation = (id: string) => {
       const { history } = this.props;

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import homebackground from '../../img/homebackground.png';
-import {TREASURE_HUNT_CREATION_ROUTE, TREASURE_HUNT_SELECTION_ROUTE} from '../../const';
+import { TREASURE_HUNT_CREATION_ROUTE, TREASURE_HUNT_SELECTION_ROUTE } from '../../const';
 
 type Props = {
     history: any,
@@ -11,13 +11,16 @@ type Props = {
 type State = {};
 
 class Home extends React.Component<Props, State> {
-    state = {};
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
       return (
         <div className="page">
-          <div className="login-background">
-            <div className="page-content">
+          <div className="page-content">
+            <div className="login-background">
               <div className="home">
                 <div className="home-create">
                   <img

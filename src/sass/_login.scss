@@ -1,61 +1,52 @@
-.login-background {
-  height: 100%;
-  width: 100%;
+.login-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.login-form {
+  border: $border-light;
+  min-height: 40%;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  background-color: $grey-control;
+
+  Form {
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-grow: 1;
+  }
+}
+
+.login-image {
+  flex-grow: 1;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-size: 256px 108px;
-  background-image: url("../img/wave.png");
 
-  .login-page {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
+  .login-picture {
+    width: 350px;
   }
+}
 
-  .login-form {
-    border: $border-light;
-    min-height: 40%;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    background-color: $grey-control;
-
-    Form {
-      margin-left: 10px;
-      margin-right: 10px;
-      flex-grow: 1;
-    }
+@media screen and (max-width: $desktop-width) {
+  .login-page {
+    flex-direction: column;
   }
 
   .login-image {
-    flex-grow: 1;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: unset;
+    flex-grow: unset;
 
     .login-picture {
-      width: 350px;
+      width: 150px;
     }
   }
-
-  @media screen and (max-width: $desktop-width) {
-    .login-page {
-      flex-direction: column;
-    }
-
-    .login-image {
-      height: unset;
-      flex-grow: unset;
-      .login-picture {
-        width: 150px;
-      }
-    }
-    .login-form {
-      flex-grow: unset;
-    }
+  .login-form {
+    flex-grow: unset;
   }
 }

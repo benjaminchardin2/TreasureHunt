@@ -10,12 +10,12 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "react/sort-comp": 0,
-    "react/default-props-match-prop-types": 0,
+    "react/default-props-match-prop-types": 0
   },
   "env": {
     "browser": true
   },
   "settings": {
-    "polyfills": ["fetch"],
+    "polyfills": ["fetch"]
   }
 }

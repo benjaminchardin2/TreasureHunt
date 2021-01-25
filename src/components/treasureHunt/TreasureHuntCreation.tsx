@@ -21,7 +21,9 @@ type State = {
 };
 
 class TreasureHuntCreation extends React.Component<Props, State> {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       initialValues: {
         clues: [
           {
@@ -29,6 +31,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
         ],
       },
     };
+  }
 
     onSubmit = (values) => {
       const { history } = this.props;

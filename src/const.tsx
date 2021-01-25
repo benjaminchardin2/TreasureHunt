@@ -1,3 +1,5 @@
+export const baseApiUrl = '/api';
+
 // Routes
 export const HOME_PAGE_ROUTE = '/home';
 export const LOGIN_PAGE_ROUTE = '/login';

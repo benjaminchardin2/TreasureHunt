@@ -8,5 +8,6 @@ from clues.views import TreasureHuntInstanceCreation
 urlpatterns = [
                   path('api/treasureHunt', TreasureHuntCreation.as_view()),
                   path('api/clues', CluesView.as_view()),
+                  path('api/treasureHuntInstance/<uuid:id>', TreasureHuntInstanceCreation.as_view()),
                   path('api/treasureHuntInstance', TreasureHuntInstanceCreation.as_view())
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

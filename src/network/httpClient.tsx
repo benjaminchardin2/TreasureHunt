@@ -1,4 +1,5 @@
 import { getError } from './handleError';
+import { baseApiUrl } from '../const';
 
 const stringify = (body) => {
   if (typeof body === 'string') {
@@ -40,7 +41,7 @@ export default class HttpClient {
     }
 
     execute() {
-      return fetch(this.url, {
+      return fetch(baseApiUrl + this.url, {
         headers: this.headersValue,
         method: this.methodvalue,
         body: this.bodyValue,

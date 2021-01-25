@@ -10,11 +10,7 @@ type Props = {
     history: any,
 };
 
-type State = {};
-
-class Login extends React.Component<Props, State> {
-    state = {};
-
+class Login extends React.Component<Props> {
     onSubmit = (values) => {
       const login = { username: values.login, password: values.password };
       loginApi.login(login)
