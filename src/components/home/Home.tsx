@@ -29,14 +29,14 @@ class Home extends React.Component<Props, State> {
                 />
                 <div className="button-group">
                   <button
-                    className="button primary"
+                    className="button primary classic-text"
                     type="button"
                     onClick={() => { this.props.history.push(TREASURE_HUNT_CREATION_ROUTE); }}
                   >
                     {I18n.t('home.CREATE')}
                   </button>
                   <button
-                    className="button secondary"
+                    className="button secondary classic-text"
                     type="button"
                     onClick={() => { this.props.history.push(TREASURE_HUNT_SELECTION_ROUTE); }}
                   >

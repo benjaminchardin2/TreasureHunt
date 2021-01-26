@@ -52,18 +52,20 @@ class TreasureHuntSelection extends React.Component<Props, State> {
         <div className="page">
           <div className="page-content">
             <div className="page-background">
-              <div className="treasure-hunt-selection-page">
-                <div className="treasure-hunt-selection-group">
-                  {
+              <div className="treasure-hunt-selection">
+                <div className="treasure-hunt-selection-page">
+                  <div className="treasure-hunt-selection-group">
+                    {
                     treasureHunts.map((treasureHunt: TreasureHunt) => (
                       <div className="treasure-hunt-selection-box">
-                        <h2 className="treasure-hunt-selection-box-text">{treasureHunt.name}</h2>
+                        <div className="treasure-hunt-selection-box-text classic-text bold">{treasureHunt.name}</div>
                         <div className="button-group">
                           <button className="button primary" onClick={() => this.handleInstanceCreation(treasureHunt.id)}>{I18n.t('treasurehunt.LAUNCH')}</button>
                         </div>
                       </div>
                     ))
                 }
+                  </div>
                 </div>
               </div>
             </div>

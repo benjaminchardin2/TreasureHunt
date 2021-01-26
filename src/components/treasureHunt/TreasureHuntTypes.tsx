@@ -1,6 +1,6 @@
 export type Clues = {
     message?: string,
-    file?: File,
+    file?: string,
     code?: string
 };
 

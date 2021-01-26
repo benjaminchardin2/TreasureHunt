@@ -19,6 +19,9 @@ const fr = {
     },
     LAUNCH: 'Lancer cette chasse au trésor',
   },
+  clues: {
+    CODE: 'Code :',
+  },
 };
 
 export default fr;

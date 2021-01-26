@@ -51,40 +51,41 @@ class TreasureHuntCreation extends React.Component<Props, State> {
         <div className="page">
           <div className="page-content">
             <div className="page-background">
-              <div className="treasure-hunt-creation-page">
-                <div className="treasure-hunt-creation-form">
-                  <Form
-                    initialValues={initialValues}
-                    onSubmit={this.onSubmit}
-                    mutators={{
-                      ...arrayMutators,
-                    }}
-                    render={(formRenderProps) => (
-                      <form onSubmit={formRenderProps.handleSubmit}>
-                        <div className="form-content">
-                          <h1>{I18n.t('treasurehunt.TITLE')}</h1>
-                          <div className="form-group treasure-hunt-creation-info">
-                            <label className="form-label" htmlFor="login-input">
-                              <FontAwesomeIcon icon="user" />
-                            </label>
-                            <Field
-                              id="login-input"
-                              name="name"
-                              component="input"
-                              className="form-field-login"
-                              type="text"
-                              placeholder={I18n.t('treasurehunt.form.TITLE')}
-                              required
-                            />
-                          </div>
-                          <div className="clues-form-group">
-                            <FieldArray name="clues">
-                              {({ fields }) => fields.map((clues, index) => (
-                                <div key={clues}>
+              <div className="treasure-hunt-creation">
+                <div className="treasure-hunt-creation-page">
+                  <div className="treasure-hunt-creation-form">
+                    <Form
+                      initialValues={initialValues}
+                      onSubmit={this.onSubmit}
+                      mutators={{
+                        ...arrayMutators,
+                      }}
+                      render={(formRenderProps) => (
+                        <form onSubmit={formRenderProps.handleSubmit}>
+                          <div className="form-content">
+                            <div className="header-text bold">{I18n.t('treasurehunt.TITLE')}</div>
+                            <div className="form-group treasure-hunt-creation-info">
+                              <label className="form-label" htmlFor="login-input">
+                                <FontAwesomeIcon icon="user" />
+                              </label>
+                              <Field
+                                id="login-input"
+                                name="name"
+                                component="input"
+                                className="form-field-login"
+                                type="text"
+                                placeholder={I18n.t('treasurehunt.form.TITLE')}
+                                required
+                              />
+                            </div>
+                            <div className="clues-form-group">
+                              <FieldArray name="clues">
+                                {({ fields }) => fields.map((clues, index) => (
+                                  <div key={clues}>
                                   <div className="clues-input">
                                     <div className="clues-description">
                                       <div className="clues-field">
-                                        <label className="clues-label">
+                                        <label className="clues-label secondary-text">
                                           {`${I18n.t('treasurehunt.form.CLUES')} #${index + 1}`}
                                         </label>
                                         <Field
@@ -106,34 +107,34 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                           X
                                         </span>
                                       </div>
-
                                     </div>
                                     <div className="clues-file">
                                       <embed />
                                     </div>
                                   </div>
                                 </div>
-                              ))}
-                            </FieldArray>
-                            <button
-                              type="button"
-                              onClick={() => formRenderProps.form.mutators.push('clues', undefined)}
-                            >
-                              {I18n.t('treasurehunt.form.CLUES_ADD')}
-                            </button>
+                                ))}
+                              </FieldArray>
+                              <button
+                                type="button"
+                                onClick={() => formRenderProps.form.mutators.push('clues', undefined)}
+                              >
+                                {I18n.t('treasurehunt.form.CLUES_ADD')}
+                              </button>
+                            </div>
+                            <div className="button-group">
+                              <button
+                                className="button primary"
+                                type="submit"
+                              >
+                                {I18n.t('register.LETS_GO')}
+                              </button>
+                            </div>
                           </div>
-                          <div className="button-group">
-                            <button
-                              className="button primary"
-                              type="submit"
-                            >
-                              {I18n.t('register.LETS_GO')}
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    )}
-                  />
+                        </form>
+                      )}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

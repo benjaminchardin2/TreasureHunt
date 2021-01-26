@@ -3,19 +3,23 @@
   flex-direction: row;
 
   .clues-container {
-    display: flex;
-    align-items: center;
-    background-color: $grey-control;
     border: $border-strong;
-
+    background-color: $grey-control;
     .clue {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: $grey-control;
+      background-color: white;
       border: $border-light;
       padding: 10px;
       margin: 20px;
+
+      .clue-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+      }
     }
   }
 }

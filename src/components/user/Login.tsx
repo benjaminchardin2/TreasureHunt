@@ -44,7 +44,7 @@ class Login extends React.Component<Props> {
                     render={(formRenderProps) => (
                       <form onSubmit={formRenderProps.handleSubmit}>
                         <div className="form-content">
-                          <h1>{I18n.t('register.REGISTER')}</h1>
+                          <div className="header-text">{I18n.t('register.REGISTER')}</div>
                           <div className="form-group">
                             <label className="form-label" htmlFor="login-input">
                               <FontAwesomeIcon icon="user" />
@@ -75,7 +75,7 @@ class Login extends React.Component<Props> {
                           </div>
                           <div className="button-group">
                             <button
-                              className="button primary"
+                              className="button primary classic-text"
                               type="submit"
                             >
                               {I18n.t('register.LETS_GO')}

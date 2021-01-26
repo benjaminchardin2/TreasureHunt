@@ -44,7 +44,7 @@ class Register extends React.Component<Props> {
                   render={(formRenderProps) => (
                     <form onSubmit={formRenderProps.handleSubmit}>
                       <div className="form-content">
-                        <h1>{I18n.t('register.REGISTER')}</h1>
+                        <div className="header-text">{I18n.t('register.REGISTER')}</div>
                         <div className="form-group">
                           <label className="form-label" htmlFor="login-input">
                             <FontAwesomeIcon icon="user" />
@@ -93,7 +93,7 @@ class Register extends React.Component<Props> {
                           && (formRenderProps.values.confirmPassword !== formRenderProps.values.password)
                             ? (
                               <span
-                                className="form-error"
+                                className="form-error caption-text"
                               >
                                 {I18n.t('register.PASSWORD_NOT_MATCHING')}
                               </span>
@@ -102,7 +102,7 @@ class Register extends React.Component<Props> {
                         }
                         <div className="button-group">
                           <button
-                            className="button primary"
+                            className="button primary classic-text"
                             type="submit"
                             disabled={formRenderProps.values.confirmPassword
                             && formRenderProps.values.password
