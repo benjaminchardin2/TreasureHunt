@@ -18,7 +18,7 @@ function CluesContainer({ clues }: Props) {
             <div className="clue-infos">
               <div className="secondary-text">{clue.message}</div>
               <div className="secondary-text">{`${I18n.t('clues.CODE')} ${clue.code}`}</div>
-              <embed src={clue.file} width="400" height="300" />
+              <embed type="video/mp4" src={clue.file} width="400" height="300"/>
             </div>
           </div>
         ))}
