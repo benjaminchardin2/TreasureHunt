@@ -1,0 +1,21 @@
+.launch-container {
+  display: flex;
+  flex-direction: row;
+
+  .clues-container {
+    display: flex;
+    align-items: center;
+    background-color: $grey-control;
+    border: $border-strong;
+
+    .clue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $grey-control;
+      border: $border-light;
+      padding: 10px;
+      margin: 20px;
+    }
+  }
+}

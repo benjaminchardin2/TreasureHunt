@@ -50,6 +50,6 @@ class TreasureHuntInstanceCreation(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, id, format=None):
-        treasureHuntInstance = TreasureHuntInstance.objects.filter(id=id)
-        serializer = TreasureHuntInstanceSerializer(treasureHuntInstance, many=True)
+        treasureHuntInstance = TreasureHuntInstance.objects.filter(id=id).first()
+        serializer = TreasureHuntInstanceSerializer(treasureHuntInstance)
         return Response(serializer.data, status=status.HTTP_200_OK)

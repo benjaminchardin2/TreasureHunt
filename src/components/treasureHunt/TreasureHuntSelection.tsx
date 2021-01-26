@@ -51,7 +51,7 @@ class TreasureHuntSelection extends React.Component<Props, State> {
       return (
         <div className="page">
           <div className="page-content">
-            <div className="login-background">
+            <div className="page-background">
               <div className="treasure-hunt-selection-page">
                 <div className="treasure-hunt-selection-group">
                   {

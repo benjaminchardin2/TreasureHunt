@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { TreasureHuntInstance } from './TreasureHuntTypes';
 import { HOME_PAGE_ROUTE } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
+import CluesContainer from '../assets/cluesContainer';
 
 type Props = {
     history: any,
@@ -47,10 +48,17 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
   }
 
   render() {
+    const { treasureHuntInstance } = this.state;
     return (
       <div className="page">
         <div className="page-content">
-          <div className="login-background" />
+          <div className="page-background">
+            <div className="launch-container">
+              <CluesContainer
+                clues={treasureHuntInstance?.treasureHunt?.clues}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

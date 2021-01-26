@@ -27,7 +27,7 @@ class Register extends React.Component<Props> {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="login-background">
+          <div className="page-background">
             <div className="login-page">
               <div className="login-image">
                 <a href="https://pngtree.com/so/pirate">

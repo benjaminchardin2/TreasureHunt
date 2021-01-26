@@ -50,7 +50,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
       return (
         <div className="page">
           <div className="page-content">
-            <div className="login-background">
+            <div className="page-background">
               <div className="treasure-hunt-creation-page">
                 <div className="treasure-hunt-creation-form">
                   <Form

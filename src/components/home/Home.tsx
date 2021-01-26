@@ -11,46 +11,45 @@ type Props = {
 type State = {};
 
 class Home extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-      return (
-        <div className="page">
-          <div className="page-content">
-            <div className="login-background">
-              <div className="home">
-                <div className="home-create">
-                  <img
-                    alt="create"
-                    className="home-picture"
-                    src={homebackground}
-                  />
-                  <div className="button-group">
-                    <button
-                      className="button primary"
-                      type="button"
-                      onClick={() => { this.props.history.push(TREASURE_HUNT_CREATION_ROUTE); }}
-                    >
-                      {I18n.t('home.CREATE')}
-                    </button>
-                    <button
-                      className="button secondary"
-                      type="button"
-                      onClick={() => { this.props.history.push(TREASURE_HUNT_SELECTION_ROUTE); }}
-                    >
-                      {I18n.t('home.LAUNCH')}
-                    </button>
-                  </div>
+  render() {
+    return (
+      <div className="page">
+        <div className="page-content">
+          <div className="page-background">
+            <div className="home">
+              <div className="home-create">
+                <img
+                  alt="create"
+                  className="home-picture"
+                  src={homebackground}
+                />
+                <div className="button-group">
+                  <button
+                    className="button primary"
+                    type="button"
+                    onClick={() => { this.props.history.push(TREASURE_HUNT_CREATION_ROUTE); }}
+                  >
+                    {I18n.t('home.CREATE')}
+                  </button>
+                  <button
+                    className="button secondary"
+                    type="button"
+                    onClick={() => { this.props.history.push(TREASURE_HUNT_SELECTION_ROUTE); }}
+                  >
+                    {I18n.t('home.LAUNCH')}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 export default withRouter(Home);
