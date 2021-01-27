@@ -32,7 +32,7 @@ class Login extends React.Component<Props> {
                 <div className="login-image">
                   <a href="https://pngtree.com/so/pirate">
                     <img
-                      alt="login-picture"
+                      alt="pirate"
                       className="login-picture"
                       src={pirate}
                     />

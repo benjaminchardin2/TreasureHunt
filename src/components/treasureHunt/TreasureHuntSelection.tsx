@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
-import { Clues, TreasureHunt } from './TreasureHuntTypes';
+import { TreasureHunt } from './TreasureHuntTypes';
 import treasureHuntApi from '../../network/apis/treasureHuntApi';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
-import { HOME_PAGE_ROUTE, TREASURE_HUNT_LAUNCH_ROUTE } from '../../const';
+import { TREASURE_HUNT_LAUNCH_ROUTE } from '../../const';
 
 type Props = {
     history: any,

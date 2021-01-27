@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { TreasureHuntInstance } from './TreasureHuntTypes';
 import { HOME_PAGE_ROUTE } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
-import CluesContainer from '../assets/CluesContainer';
+import CluesContainer from '../assets/clues/CluesContainer';
 
 type Props = {
     history: any,

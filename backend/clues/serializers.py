@@ -83,7 +83,6 @@ class CluesCreationSerializer(serializers.Serializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
-
     class Meta:
         model = CluesModel
         fields = ('message')

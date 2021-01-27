@@ -15,13 +15,16 @@ export default class HttpClient {
 
     methodvalue: string;
 
+    mediaUrl: boolean;
+
     bodyValue: string | null;
 
-    constructor(url: string, method: string = 'GET') {
+    constructor(url: string, method: string = 'GET', mediaUrl: boolean = false) {
       this.url = url;
       this.headersValue = {};
       this.methodvalue = method;
       this.bodyValue = null;
+      this.mediaUrl = mediaUrl;
     }
 
     headers(headers: HeadersInit) {
@@ -41,7 +44,7 @@ export default class HttpClient {
     }
 
     execute() {
-      return fetch(baseApiUrl + this.url, {
+      return fetch(this.mediaUrl ? this.url : (baseApiUrl + this.url), {
         headers: this.headersValue,
         method: this.methodvalue,
         body: this.bodyValue,

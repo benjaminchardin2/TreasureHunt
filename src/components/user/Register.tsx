@@ -32,7 +32,7 @@ class Register extends React.Component<Props> {
               <div className="login-image">
                 <a href="https://pngtree.com/so/pirate">
                   <img
-                    alt="login-picture"
+                    alt="pirate-ship"
                     className="login-picture"
                     src={pirateShip}
                   />
