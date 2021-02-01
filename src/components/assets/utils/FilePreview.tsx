@@ -1,40 +1,37 @@
 import React from 'react';
-import fileApi from '../../../network/apis/fileApi';
+import { I18n } from 'react-redux-i18n';
 
 type Props = {
-    fileUrl: string | undefined,
-};
-
-type State = {
-    contentType: string | undefined
+    contentType: string | undefined,
+    fileUrl: string | undefined
 }
 
-class FilePreview extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contentType: undefined,
-    };
-  }
-
-  componentDidMount() {
-    const { fileUrl } = this.props;
-    if (fileUrl) {
-      fileApi
-        .get(fileUrl)
-        .then((response) => {
-          this.setState({
-            contentType: response.headers.get('Content-Type'),
-          });
-        });
+function FilePreview({ contentType, fileUrl }: Props) {
+  if (fileUrl) {
+    switch (contentType) {
+      case 'audio/mpeg':
+        return (
+          <audio
+            controls
+            src={fileUrl}
+          >
+            {I18n.t('preview.AUDIO')}
+          </audio>
+        );
+      case 'video/mp4':
+        return (
+          <video controls className="preview">
+            <source src={fileUrl} type="video/mp4" />
+            {I18n.t('preview.VIDEO')}
+          </video>
+        );
+      default:
+        return (
+          <img src={fileUrl} alt="preview" className="preview"/>
+        );
     }
   }
-
-  render() {
-    const { contentType } = this.state;
-    return (<></>
-    );
-  }
+  return <></>;
 }
 
 export default FilePreview;

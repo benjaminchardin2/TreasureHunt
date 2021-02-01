@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: $font-stack;
+
   .page {
     height: 100vh;
     width: 100vw;
@@ -78,8 +79,11 @@ body {
         border: none;
         background-color: $secondary;
         color: white;
-        margin-bottom: 20px;
-        margin-right: 20px;
+
+        &.margin {
+          margin-bottom: 20px;
+          margin-right: 20px;
+        }
 
         &.primary:focus {
           background-color: $primary;
@@ -147,6 +151,27 @@ body {
           margin-right: unset;
         }
       }
+    }
+  }
+
+  .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    max-height: 50%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    right: 0;
+    bottom: 0;
+    border: $border-strong;
+    background: #fff;
+    borderRadius: 4px;
+    padding: 20px;
+    .preview {
+      max-height: 100%;
+      max-width: 100%;
     }
   }
 }

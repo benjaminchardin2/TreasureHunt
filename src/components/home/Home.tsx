@@ -26,7 +26,7 @@ class Home extends React.Component<Props, State> {
                 />
                 <div className="button-group">
                   <button
-                    className="button primary classic-text"
+                    className="button primary margin classic-text"
                     type="button"
                     onClick={() => { this.props.history.push(TREASURE_HUNT_CREATION_ROUTE); }}
                   >

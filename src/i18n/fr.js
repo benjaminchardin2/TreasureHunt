@@ -22,6 +22,11 @@ const fr = {
   clues: {
     CODE: 'Code :',
   },
+  preview: {
+    AUDIO: 'Preview audio de l\'indice',
+    VIDEO: 'Preview video de l\'indice',
+    BUTTON: 'Ouvrir la preview',
+  }
 };
 
 export default fr;
