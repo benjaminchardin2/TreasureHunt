@@ -15,13 +15,15 @@ type Props = {
 };
 
 type State = {
-    treasureHuntInstance: TreasureHuntInstance
+    treasureHuntInstance: TreasureHuntInstance,
+    hide: boolean
 };
 
 class TreasureHuntLaunch extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
+      hide: false,
       treasureHuntInstance: undefined,
     };
   }
@@ -47,15 +49,21 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
     }
   }
 
+  hide = () => {
+    this.setState((prevState) => ({ hide: !prevState.hide }));
+  }
+
   render() {
-    const { treasureHuntInstance } = this.state;
+    const { treasureHuntInstance, hide } = this.state;
     return (
       <div className="page">
         <div className="page-content">
           <div className="page-background">
             <div className="launch-container">
               <CluesContainer
+                hide={hide}
                 clues={treasureHuntInstance?.treasureHunt?.clues}
+                onClick={this.hide}
               />
             </div>
           </div>

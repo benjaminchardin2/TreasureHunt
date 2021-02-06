@@ -4,15 +4,26 @@ import { Clues } from '../../treasureHunt/TreasureHuntTypes';
 import FilePreviewModal from '../utils/FilePreviewModal';
 
 type Props = {
-    clues: Clues[] | undefined
+    clues: Clues[] | undefined,
+    hide: boolean,
+    onClick: Function
 }
 
-function CluesContainer({ clues }: Props) {
+function CluesContainer({ clues, hide, onClick }: Props) {
   if (clues) {
     return (
-      <div className="clues-container">
+      <div className={`clues-container ${hide ? 'hide' : ''}`}>
+        <div className="button-group">
+          <button
+            className="button primary"
+            type="button"
+            onClick={() => { onClick(); }}
+          >
+            {hide ? I18n.t('button.SHOW') : I18n.t('button.HIDE')}
+          </button>
+        </div>
         {clues.map((clue: Clues, index: number) => (
-          <div className="clue">
+          <div className={`clue ${hide ? 'hide' : ''}`}>
             <div className="classic-text bold">
               {`${I18n.t('treasurehunt.form.CLUES')} N°${index + 1}:`}
             </div>
