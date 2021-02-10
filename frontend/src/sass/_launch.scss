@@ -2,11 +2,11 @@
   display: flex;
   width: 20%;
   flex-direction: column;
+  margin-top: 10px;
 
   .clues-container {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
     border: $border-strong;
     background-color: $grey-control;
     flex-grow: 1;

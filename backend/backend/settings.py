@@ -40,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'clues',
     'rest_framework',
     'rest_framework.authtoken',
+    'channels',
+    'accounts',
+    'clues',
 ]
 
 REST_FRAMEWORK = {
@@ -87,7 +88,7 @@ MEDIA_URL = '/media/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = 'backend.asgi.application'
 
 AUTH_USER_MODEL = 'accounts.User'
 
