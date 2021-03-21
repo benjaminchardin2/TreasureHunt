@@ -12,6 +12,7 @@ const fr = {
     TITLE: 'Créer une chasse au trésor',
     form: {
       TITLE: 'Nom de la chasse au trésor',
+      PARTICIPANT: 'Participant',
       CLUES: 'Indice',
       CLUES_FILE: 'Fichier de l\'indice',
       CLUES_MESSAGE_PLACEHOLDER: 'Au sud du peuplier',

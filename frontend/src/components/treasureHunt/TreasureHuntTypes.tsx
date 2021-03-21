@@ -17,3 +17,7 @@ export type TreasureHuntInstance = {
         clues: Clues[]
     }
 } | undefined
+
+export type Participant = {
+    teamName: string
+}

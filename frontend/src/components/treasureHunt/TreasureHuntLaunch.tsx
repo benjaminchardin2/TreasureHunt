@@ -1,9 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { TreasureHuntInstance } from './TreasureHuntTypes';
+import {Participant, TreasureHuntInstance} from './TreasureHuntTypes';
 import { HOME_PAGE_ROUTE } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
 import CluesContainer from '../assets/clues/CluesContainer';
+import ParticipantContainer from "../assets/participant/ParticipantContainer";
 
 type Props = {
     history: any,
@@ -17,6 +18,7 @@ type Props = {
 type State = {
     treasureHuntInstance: TreasureHuntInstance,
     hide: boolean
+    participants: Participant[] | undefined
 };
 
 class TreasureHuntLaunch extends React.Component<Props, State> {
@@ -25,6 +27,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
     this.state = {
       hide: false,
       treasureHuntInstance: undefined,
+      participants: undefined
     };
   }
 
@@ -46,6 +49,11 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
         .get(idInstance)
         .then((response) => response.json())
         .then((treasureHuntInstance) => this.setState({ treasureHuntInstance }));
+        const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
+        ws.onopen = (evt: any) => {
+            console.log(evt);
+            this.setState({participants: JSON.parse(evt.data)})
+        }
     }
   }
 
@@ -54,7 +62,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
   }
 
   render() {
-    const { treasureHuntInstance, hide } = this.state;
+    const { treasureHuntInstance, hide, participants } = this.state;
     return (
       <div className="page">
         <div className="page-content">
@@ -65,6 +73,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
                 clues={treasureHuntInstance?.treasureHunt?.clues}
                 onClick={this.hide}
               />
+              <ParticipantContainer participants={participants} hide={false} onClick={() => {}}/>
             </div>
           </div>
         </div>
