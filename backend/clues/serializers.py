@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from clues.models import Clues as CluesModel, TreasureHunt
+from clues.models import Clues as CluesModel, TreasureHunt, Participant
 
 from clues.models import TreasureHuntInstance
 
@@ -83,6 +83,7 @@ class CluesCreationSerializer(serializers.Serializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
+
     class Meta:
         model = CluesModel
         fields = ('message')
@@ -119,3 +120,9 @@ class TreasureHuntInstanceSerializer(serializers.Serializer):
         model = TreasureHuntInstance
         fields = '__all__'
         depth = 2
+
+
+class ParticipantSerializer(serializers.Serializer):
+    class Meta:
+        model = Participant
+        fields = '__all__'
