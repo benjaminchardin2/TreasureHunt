@@ -36,8 +36,7 @@ class TreasureHuntInstance(models.Model):
 class Participant(models.Model):
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    team_name = models.CharField(max_length=100, unique=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    teamName = models.CharField(max_length=100, unique=True)
     treasureHuntInstance = models.ForeignKey(TreasureHuntInstance, to_field='id', on_delete=models.CASCADE)
 
 

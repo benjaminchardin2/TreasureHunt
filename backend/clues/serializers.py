@@ -123,6 +123,15 @@ class TreasureHuntInstanceSerializer(serializers.Serializer):
 
 
 class ParticipantSerializer(serializers.Serializer):
+    id = serializers.UUIDField(write_only=True)
+    teamName = serializers.CharField(min_length=0)
+
+    def create(self, validated_data):
+        id_instance = validated_data.pop('id')
+        treasureHuntInstance = TreasureHuntInstance.objects.get(id=id_instance)
+        participant = Participant.objects.create(**validated_data, treasureHuntInstance=treasureHuntInstance)
+        return participant
+
     class Meta:
         model = Participant
         fields = '__all__'
