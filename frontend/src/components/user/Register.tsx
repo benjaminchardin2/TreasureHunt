@@ -53,7 +53,7 @@ class Register extends React.Component<Props> {
                             id="login-input"
                             name="login"
                             component="input"
-                            className="form-field-login"
+                            className="form-field"
                             type="text"
                             placeholder="login"
                             required
@@ -67,7 +67,7 @@ class Register extends React.Component<Props> {
                             id="password-input"
                             name="password"
                             component="input"
-                            className="form-field-login"
+                            className="form-field"
                             type="password"
                             placeholder="password"
                             required
@@ -81,7 +81,7 @@ class Register extends React.Component<Props> {
                             id="confirm-password-input"
                             name="confirmPassword"
                             component="input"
-                            className="form-field-login"
+                            className="form-field"
                             type="password"
                             placeholder="password confirmation"
                             required

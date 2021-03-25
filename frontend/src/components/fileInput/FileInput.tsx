@@ -10,7 +10,7 @@ class FileInput extends React.Component<FieldRenderProps<HTMLElement, any>> {
     });
 
     handleFiles = (e) => {
-     const filesCopy = Array.from(e.target.files);
+      const filesCopy = Array.from(e.target.files);
       if (!filesCopy.length) {
         return;
       }

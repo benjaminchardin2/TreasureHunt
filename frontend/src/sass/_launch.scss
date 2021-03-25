@@ -1,16 +1,18 @@
 .launch-container {
+  width: 100%;
   display: flex;
-  width: 20%;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
 
   .clues-container {
     display: flex;
     flex-direction: column;
+    width: 20%;
     border: $border-strong;
     background-color: $grey-control;
     flex-grow: 1;
+    margin-right: 50px;
     &.hide {
       flex-grow: unset;
     }
@@ -34,6 +36,34 @@
       }
     }
   }
+
+  .participant-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    border: $border-strong;
+    background-color: $grey-control;
+    margin-right: 50px;
+    .participants-list {
+      flex-grow: 1;
+      width: 50%;
+      flex-direction: column;
+      display: flex;
+
+      .participant {
+        display: flex;
+        padding: 15px;
+        flex-grow: 1;
+        justify-content: space-between;;
+      }
+    }
+    .form {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 @media screen and (max-width: $desktop-width) {
@@ -44,6 +74,13 @@
       .clues-container {
         width: 75%;
         flex-grow: unset;
+        margin-right: unset;
+      }
+
+      .participant-container {
+        margin-top: 15px;
+        width: 75%;
+        margin-right: unset;
       }
     }
 }

@@ -72,7 +72,7 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                                 id="login-input"
                                 name="name"
                                 component="input"
-                                className="form-field-login"
+                                className="form-field"
                                 type="text"
                                 placeholder={I18n.t('treasurehunt.form.TITLE')}
                                 required
@@ -82,37 +82,37 @@ class TreasureHuntCreation extends React.Component<Props, State> {
                               <FieldArray name="clues">
                                 {({ fields }) => fields.map((clues, index) => (
                                   <div key={clues}>
-                                  <div className="clues-input">
-                                    <div className="clues-description">
-                                      <div className="clues-field">
-                                        <label className="clues-label secondary-text">
-                                          {`${I18n.t('treasurehunt.form.CLUES')} #${index + 1}`}
-                                        </label>
-                                        <Field
-                                          name={`${clues}.message`}
-                                          component="textarea"
-                                          placeholder={I18n.t('treasurehunt.form.CLUES_MESSAGE_PLACEHOLDER')}
-                                        />
+                                    <div className="clues-input">
+                                      <div className="clues-description">
+                                        <div className="clues-field">
+                                          <label className="clues-label secondary-text">
+                                            {`${I18n.t('treasurehunt.form.CLUES')} #${index + 1}`}
+                                          </label>
+                                          <Field
+                                            name={`${clues}.message`}
+                                            component="textarea"
+                                            placeholder={I18n.t('treasurehunt.form.CLUES_MESSAGE_PLACEHOLDER')}
+                                          />
+                                        </div>
+                                        <div className="clues-label">
+                                          <Field
+                                            name={`${clues}.file`}
+                                            component={FileInput}
+                                            type="file"
+                                          />
+                                          <span
+                                            onClick={() => fields.remove(index)}
+                                            style={{ cursor: 'pointer' }}
+                                          >
+                                            X
+                                          </span>
+                                        </div>
                                       </div>
-                                      <div className="clues-label">
-                                        <Field
-                                          name={`${clues}.file`}
-                                          component={FileInput}
-                                          type="file"
-                                        />
-                                        <span
-                                          onClick={() => fields.remove(index)}
-                                          style={{ cursor: 'pointer' }}
-                                        >
-                                          X
-                                        </span>
+                                      <div className="clues-file">
+                                        <embed />
                                       </div>
-                                    </div>
-                                    <div className="clues-file">
-                                      <embed />
                                     </div>
                                   </div>
-                                </div>
                                 ))}
                               </FieldArray>
                               <button
