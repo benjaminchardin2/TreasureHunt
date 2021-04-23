@@ -12,7 +12,8 @@ const fr = {
     TITLE: 'Créer une chasse au trésor',
     form: {
       TITLE: 'Nom de la chasse au trésor',
-      PARTICIPANT: 'Participant',
+      PARTICIPANT: 'Équipe',
+      NO_PARTICIPANT: 'Aucune Équipe :\'(',
       CLUES: 'Indice',
       CLUES_FILE: 'Fichier de l\'indice',
       CLUES_MESSAGE_PLACEHOLDER: 'Au sud du peuplier',
@@ -27,7 +28,11 @@ const fr = {
     AUDIO: 'Preview audio de l\'indice',
     VIDEO: 'Preview video de l\'indice',
     BUTTON: 'Ouvrir la preview',
-  }
+  },
+  join: {
+    JOIN: 'Rejoindre',
+    TEAM_NAME: 'Nom d\'équipe',
+  },
 };
 
 export default fr;

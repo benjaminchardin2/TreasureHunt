@@ -6,7 +6,7 @@ export type Clues = {
 
 export type TreasureHunt = {
     name: string,
-    id: string
+    id: string,
 };
 
 export type TreasureHuntInstance = {

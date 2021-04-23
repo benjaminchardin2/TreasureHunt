@@ -5,10 +5,11 @@ import ParticipantContainer from "../assets/participant/ParticipantContainer";
 import {Field, Form} from "react-final-form";
 import {I18n} from 'react-redux-i18n';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import IconChoice from "../assets/participant/IconChoice";
 
 type Props = {
     history: any,
-                  match: {
+    match: {
         params: {
             id: String,
         }
@@ -65,27 +66,31 @@ class treasureHuntJoin extends React.Component<Props, State> {
                                         render={(formRenderProps) => (
                                             <form onSubmit={formRenderProps.handleSubmit}>
                                                 <div className="form-content">
-                                                    <div className="header-text">{I18n.t('register.REGISTER')}</div>
                                                     <div className="form-group">
-                                                        <label className="form-label" htmlFor="name-input">
-                                                            <FontAwesomeIcon icon="user"/>
-                                                        </label>
                                                         <Field
                                                             id="name-input"
                                                             name="teamName"
                                                             component="input"
                                                             className="form-field"
                                                             type="text"
-                                                            placeholder="name"
+                                                            placeholder={I18n.t('join.TEAM_NAME')}
                                                             required
                                                         />
                                                     </div>
+                                                        <Field
+                                                            id="icon-input"
+                                                            name="icon"
+                                                            component={IconChoice}
+                                                            className="form-field"
+                                                            initialValue={1}
+                                                        />
                                                     <div className="button-group">
                                                         <button
                                                             className="button primary classic-text"
                                                             type="submit"
+                                                            disabled={formRenderProps.invalid}
                                                         >
-                                                            {I18n.t('register.LETS_GO')}
+                                                            {I18n.t('join.JOIN')}
                                                         </button>
                                                     </div>
                                                 </div>

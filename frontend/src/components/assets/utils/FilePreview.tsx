@@ -27,7 +27,7 @@ function FilePreview({ contentType, fileUrl }: Props) {
         );
       default:
         return (
-          <img src={fileUrl} alt="preview" className="preview"/>
+          <img src={fileUrl} alt="preview" className="preview" />
         );
     }
   }

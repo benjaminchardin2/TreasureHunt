@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Redirect, Route, Switch,
 } from 'react-router-dom';
-import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faKey, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import Register from './components/user/Register';
 import Login from './components/user/Login';
@@ -21,7 +21,7 @@ import treasureHuntSelection from './components/treasureHunt/TreasureHuntSelecti
 import treasureHuntLaunch from './components/treasureHunt/TreasureHuntLaunch';
 import treasureHuntJoin from './components/treasureHunt/TreasureHuntJoin';
 
-library.add(faUser, faKey);
+library.add(faUser, faKey, faArrowLeft, faArrowRight);
 
 function App() {
   return (

@@ -1,13 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Field, Form } from 'react-final-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { I18n } from 'react-redux-i18n';
 import { Participant, TreasureHuntInstance } from './TreasureHuntTypes';
 import { HOME_PAGE_ROUTE } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
 import CluesContainer from '../assets/clues/CluesContainer';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
+import CopyButton from '../assets/utils/CopyButton';
 
 type Props = {
     history: any,
@@ -67,13 +65,6 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
 
   hide = () => {
     this.setState((prevState) => ({ hide: !prevState.hide }));
-  }
-
-  onSubmit = (values: any) => {
-    values.id = this.state.treasureHuntInstance?.id;
-    if (this.state.ws) {
-      this.state.ws.send(JSON.stringify(values));
-    }
   };
 
   render() {
@@ -90,40 +81,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
               />
               <div className="participant-container">
                 <ParticipantContainer participants={participants} />
-                <div className="form">
-                  <Form
-                    onSubmit={this.onSubmit}
-                    render={(formRenderProps) => (
-                      <form onSubmit={formRenderProps.handleSubmit}>
-                        <div className="form-content">
-                          <div className="header-text">{I18n.t('register.REGISTER')}</div>
-                          <div className="form-group">
-                            <label className="form-label" htmlFor="name-input">
-                              <FontAwesomeIcon icon="user" />
-                            </label>
-                            <Field
-                              id="name-input"
-                              name="teamName"
-                              component="input"
-                              className="form-field"
-                              type="text"
-                              placeholder="name"
-                              required
-                            />
-                          </div>
-                          <div className="button-group">
-                            <button
-                              className="button primary classic-text"
-                              type="submit"
-                            >
-                              {I18n.t('register.LETS_GO')}
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    )}
-                  />
-                </div>
+                <CopyButton url={`${window.location.host}/treasurehunt/join/${treasureHuntInstance?.id}`} />
               </div>
             </div>
           </div>

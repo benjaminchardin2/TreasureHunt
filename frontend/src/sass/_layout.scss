@@ -80,11 +80,6 @@ body {
         background-color: $secondary;
         color: white;
 
-        &.margin {
-          margin-bottom: 20px;
-          margin-right: 20px;
-        }
-
         &.primary:focus {
           background-color: $primary;
         }
@@ -99,6 +94,7 @@ body {
       }
 
       &.secondary {
+        margin-left: 20px;
         height: 50px;
         text-transform: uppercase;
         outline: none;
@@ -149,6 +145,8 @@ body {
 
         &.secondary {
           margin-right: unset;
+          margin-left: unset;
+          margin-top: 20px;
         }
       }
     }

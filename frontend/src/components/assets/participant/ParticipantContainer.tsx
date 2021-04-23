@@ -10,6 +10,7 @@ function ParticipantContainer({ participants }: Props) {
   if (participants) {
     return (
       <div className="participants-list">
+        {participants.length === 0 && <div>{I18n.t('treasurehunt.form.NO_PARTICIPANT')}</div>}
         {participants.map((participant: Participant, index: number) => (
           <div className="participant">
             <div className="classic-text bold">

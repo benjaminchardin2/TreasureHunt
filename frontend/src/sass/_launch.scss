@@ -47,6 +47,8 @@
     background-color: $grey-control;
     margin-right: 50px;
     .participants-list {
+      text-align: center;
+      padding: 15px;
       flex-grow: 1;
       width: 50%;
       flex-direction: column;
@@ -62,6 +64,21 @@
     .form {
       display: flex;
       align-items: center;
+    }
+  }
+
+  .copy-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    .copy-button-text {
+      margin-right: 10px;
+      margin-left: 10px;
+      textarea {
+        border: none;
+        resize: none;
+        height: 75px;
+      }
     }
   }
 }
@@ -81,6 +98,14 @@
         margin-top: 15px;
         width: 75%;
         margin-right: unset;
+        padding-bottom: 10px;
+        .participants-list {
+          width: 100%;
+        }
+      }
+
+      .copy-button {
+        flex-direction: column;
       }
     }
 }
