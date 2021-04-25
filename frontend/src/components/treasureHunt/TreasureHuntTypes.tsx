@@ -19,5 +19,6 @@ export type TreasureHuntInstance = {
 } | undefined
 
 export type Participant = {
+    icon: string
     teamName: string
 }

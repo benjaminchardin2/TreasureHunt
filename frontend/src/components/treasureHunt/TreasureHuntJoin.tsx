@@ -4,7 +4,6 @@ import {Participant} from './TreasureHuntTypes';
 import ParticipantContainer from "../assets/participant/ParticipantContainer";
 import {Field, Form} from "react-final-form";
 import {I18n} from 'react-redux-i18n';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import IconChoice from "../assets/participant/IconChoice";
 
 type Props = {
@@ -19,6 +18,8 @@ type Props = {
 type State = {
     participants: Participant[] | undefined
     ws: WebSocket | undefined
+    hasJoined: boolean
+    teamId: string | undefined
 };
 
 class treasureHuntJoin extends React.Component<Props, State> {
@@ -27,6 +28,8 @@ class treasureHuntJoin extends React.Component<Props, State> {
         this.state = {
             participants: undefined,
             ws: undefined,
+            hasJoined: false,
+            teamId: undefined,
         };
     }
 
@@ -35,9 +38,6 @@ class treasureHuntJoin extends React.Component<Props, State> {
         if (idInstance) {
             const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
             this.setState({ws});
-            ws.onopen = (evt: Event) => {
-                console.log('connected');
-            };
             ws.onmessage = (evt: MessageEvent) => {
                 this.setState({participants: JSON.parse(evt.data)})
             }
@@ -48,18 +48,22 @@ class treasureHuntJoin extends React.Component<Props, State> {
         values.id = this.props.match.params.id;
         if (this.state.ws) {
             this.state.ws.send(JSON.stringify(values))
+            this.setState({
+                hasJoined: true,
+                teamId: values.teamName,
+            })
         }
     };
 
     render() {
-        const {participants} = this.state;
+        const {participants, hasJoined, teamId} = this.state;
         return (
             <div className="page">
                 <div className="page-content">
                     <div className="page-background">
                         <div className="launch-container">
                             <div className='participant-container'>
-                                <ParticipantContainer participants={participants}/>
+                                <ParticipantContainer participants={participants} teamName={teamId}/>
                                 <div className="form">
                                     <Form
                                         onSubmit={this.onSubmit}
@@ -88,7 +92,7 @@ class treasureHuntJoin extends React.Component<Props, State> {
                                                         <button
                                                             className="button primary classic-text"
                                                             type="submit"
-                                                            disabled={formRenderProps.invalid}
+                                                            disabled={formRenderProps.invalid || hasJoined}
                                                         >
                                                             {I18n.t('join.JOIN')}
                                                         </button>

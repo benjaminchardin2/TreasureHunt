@@ -18,6 +18,7 @@ const fr = {
       CLUES_FILE: 'Fichier de l\'indice',
       CLUES_MESSAGE_PLACEHOLDER: 'Au sud du peuplier',
       CLUES_ADD: 'Ajouter un indice',
+      YOU: 'Vous',
     },
     LAUNCH: 'Lancer cette chasse au trésor',
   },
