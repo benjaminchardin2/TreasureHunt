@@ -47,15 +47,15 @@ class CopyButton extends React.Component<Props, State> {
             <button type="button"  className="button primary" onClick={() => this.copyCodeToClipboard()}>
               Copy
             </button>
-            {
-              success
-                ? (
-                  <div style={{ color: 'green' }}>
-                    Success!
-                  </div>
-                ) : null
-              }
           </div>
+            {
+                success
+                    ? (
+                        <div style={{ color: 'green' }}>
+                            Success!
+                        </div>
+                    ) : null
+            }
         </div>
       );
     }

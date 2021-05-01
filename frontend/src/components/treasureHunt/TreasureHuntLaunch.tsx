@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Participant, TreasureHuntInstance } from './TreasureHuntTypes';
-import { HOME_PAGE_ROUTE } from '../../const';
+import { HOME_PAGE_ROUTE, MESSAGE_PARTICIPANTS } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
 import CluesContainer from '../assets/clues/CluesContainer';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
@@ -29,7 +29,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
     this.state = {
       hide: false,
       treasureHuntInstance: undefined,
-      participants: undefined,
+      participants: [],
       ws: undefined,
     };
   }
@@ -58,7 +58,18 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
         console.log('connected');
       };
       ws.onmessage = (evt: MessageEvent) => {
-        this.setState({ participants: JSON.parse(evt.data) });
+        const data = JSON.parse(evt.data);
+        if (data && data.message) {
+          switch (data.message) {
+            case MESSAGE_PARTICIPANTS:
+              if (data.content) {
+                this.setState({ participants: data.content });
+              }
+              break;
+            default:
+              break;
+          }
+        }
       };
     }
   }

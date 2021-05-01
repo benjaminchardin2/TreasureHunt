@@ -9,3 +9,5 @@ export const TREASURE_HUNT_CREATION_ROUTE = `${TREASURE_HUNT_ROUTE}/creation`;
 export const TREASURE_HUNT_SELECTION_ROUTE = `${TREASURE_HUNT_ROUTE}/selection`;
 export const TREASURE_HUNT_LAUNCH_ROUTE = `${TREASURE_HUNT_ROUTE}/launch`;
 export const TREASURE_HUNT_JOIN_ROUTE = `${TREASURE_HUNT_ROUTE}/join/:id`;
+
+export const MESSAGE_PARTICIPANTS = 'participants';
