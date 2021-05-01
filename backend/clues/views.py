@@ -5,11 +5,11 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from clues.models import TreasureHunt, Clues, TreasureHuntInstance
+from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant
 from clues.serializers import TreasureHuntSerializerCustom
 from clues.serializers import TreasureHuntSerializer
 from clues.serializers import CluesSerializer
-
+from clues.serializers import ParticipantSerializer
 from clues.serializers import TreasureHuntInstanceSerializer
 
 
@@ -52,4 +52,11 @@ class TreasureHuntInstanceCreation(APIView):
     def get(self, request, id, format=None):
         treasureHuntInstance = TreasureHuntInstance.objects.filter(id=id).first()
         serializer = TreasureHuntInstanceSerializer(treasureHuntInstance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ParticipantView(APIView):
+
+    def get(self, request, id, format=None):
+        participant = Participant.objects.filter(id=id).first()
+        serializer = ParticipantSerializer(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)

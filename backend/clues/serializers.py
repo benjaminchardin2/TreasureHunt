@@ -123,8 +123,9 @@ class TreasureHuntInstanceSerializer(serializers.Serializer):
 
 
 class ParticipantSerializer(serializers.Serializer):
-    id = serializers.UUIDField(write_only=True)
+    id = serializers.UUIDField()
     teamName = serializers.CharField(min_length=0)
+    icon = serializers.IntegerField()
 
     def create(self, validated_data):
         id_instance = validated_data.pop('id')

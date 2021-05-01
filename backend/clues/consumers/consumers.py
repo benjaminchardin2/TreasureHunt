@@ -1,5 +1,6 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import JsonWebsocketConsumer
+from django.db import utils
 
 from clues.models import Participant
 
@@ -16,9 +17,12 @@ class ParticipantConsumer(JsonWebsocketConsumer):
             self.channel_name
         )
 
-        participants = Participant.objects.filter(treasureHuntInstance=id_instance)
-        serializer = ParticipantSerializer(participants, many=True)
-        self.send_json(serializer.data)
+        async_to_sync(self.channel_layer.group_send)(
+            self.group_name,
+            {
+                "type": "chat.message",
+            },
+        )
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(self.group_name, self.channel_name)
@@ -27,18 +31,23 @@ class ParticipantConsumer(JsonWebsocketConsumer):
         serializer = ParticipantSerializer(data=content)
 
         if serializer.is_valid():
-            serializer.save()
-            async_to_sync(self.channel_layer.group_send)(
-                self.group_name,
-                {
-                    "type": "chat.message",
-                },
-            )
+            try:
+                serializer.save()
+                async_to_sync(self.channel_layer.group_send)(
+                    self.group_name,
+                    {
+                        "type": "chat.message",
+                    },
+                )
+            except utils.IntegrityError:
+                print('error')
 
     def chat_message(self, event):
         id_instance = self.scope["url_route"]["kwargs"]["id"]
         participants = Participant.objects.filter(treasureHuntInstance=id_instance)
         serializer_result = ParticipantSerializer(participants, many=True)
-        self.send_json(
-            serializer_result.data
+        self.send_json({
+            "message": "participants",
+            "content": serializer_result.data
+        }
         )
