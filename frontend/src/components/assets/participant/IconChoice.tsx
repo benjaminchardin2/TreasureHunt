@@ -37,7 +37,7 @@ class IconChoice extends React.Component<FieldRenderProps<number, any>, State> {
             <div onClick={this.iconLeft}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-left" />
             </div>
-            <img src={`/staticFiles/icons/icon_${value}.png`} alt="icon" className="icon" />
+            <img src={`/staticfiles/icons/icon_${value}.png`} alt="icon" className="icon" />
             <div onClick={this.iconRight}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-right" />
             </div>
