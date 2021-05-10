@@ -1,9 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import permissions, status
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSet
 
 from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant
 from clues.serializers import TreasureHuntSerializerCustom
@@ -13,14 +14,15 @@ from clues.serializers import ParticipantSerializer
 from clues.serializers import TreasureHuntInstanceSerializer
 
 
-class TreasureHuntCreation(APIView):
+class TreasureHuntCreationViewSet(ViewSet):
+    queryset = TreasureHunt.objects.all()
 
-    def get(self, request, format=None):
+    def list(self, request, format=None):
         treasureHunt = TreasureHunt.objects.all()
         serializer = TreasureHuntSerializer(treasureHunt, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
+    def create(self, request, format=None):
         serializer = TreasureHuntSerializerCustom(data=request.data)
 
         if serializer.is_valid():
@@ -30,17 +32,19 @@ class TreasureHuntCreation(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CluesView(APIView):
+class CluesViewSet(ViewSet):
+    queryset = Clues.objects.all()
 
-    def get(self, request, format=None):
+    def list(self, request, format=None):
         clues = Clues.objects.all()
         serializer = CluesSerializer(clues, many=True)
         return Response(serializer.data)
 
 
-class TreasureHuntInstanceCreation(APIView):
+class TreasureHuntInstanceViewSet(ViewSet):
+    queryset = TreasureHuntInstance.objects.all()
 
-    def post(self, request, format=None):
+    def create(self, request, format=None):
         serializer = TreasureHuntInstanceSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -49,14 +53,13 @@ class TreasureHuntInstanceCreation(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, id, format=None):
-        treasureHuntInstance = TreasureHuntInstance.objects.filter(id=id).first()
+    def retrieve(self, request, pk=None, format=None):
+        treasureHuntInstance = TreasureHuntInstance.objects.filter(id=pk).first()
         serializer = TreasureHuntInstanceSerializer(treasureHuntInstance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class ParticipantView(APIView):
-
-    def get(self, request, id, format=None):
-        participant = Participant.objects.filter(id=id).first()
+    @action(detail=True, methods=['get'], name='Get participant', url_path='participant/(?P<team_id>[^/.]+)')
+    def participant(self, request, pk=None, **kwargs):
+        participant = Participant.objects.filter(treasureHuntInstance=pk, id=kwargs['team_id']).first()
         serializer = ParticipantSerializer(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)

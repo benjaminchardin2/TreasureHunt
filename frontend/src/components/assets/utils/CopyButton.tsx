@@ -1,4 +1,5 @@
 import React from 'react';
+import { I18n } from 'react-redux-i18n';
 
 type Props = {
     url: string,
@@ -44,15 +45,15 @@ class CopyButton extends React.Component<Props, State> {
             />
           </div>
           <div className="button-group">
-            <button type="button"  className="button primary" onClick={() => this.copyCodeToClipboard()}>
-              Copy
+            <button type="button" className="button secondary" onClick={() => this.copyCodeToClipboard()}>
+                {I18n.t('actions.COPY')}
             </button>
           </div>
             {
                 success
                     ? (
                         <div style={{ color: 'green' }}>
-                            Success!
+                            {I18n.t('actions.SUCCESS')}
                         </div>
                     ) : null
             }

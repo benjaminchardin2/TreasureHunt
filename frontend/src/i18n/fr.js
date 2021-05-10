@@ -34,6 +34,14 @@ const fr = {
     JOIN: 'Rejoindre',
     TEAM_NAME: 'Nom d\'équipe',
   },
+  create: {
+    LINK: 'Voici le lien pour inviter vos amis',
+  },
+  actions: {
+    SUCCESS: 'Url copiée avec succès',
+    COPY: 'Copier le lien',
+    LAUNCH: 'Lancer la partie',
+  }
 };
 
 export default fr;

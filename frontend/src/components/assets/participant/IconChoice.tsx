@@ -34,11 +34,11 @@ class IconChoice extends React.Component<FieldRenderProps<number, any>, State> {
       return (
         <>
           <div className="icon-choice">
-            <div onClick={this.iconLeft}>
+            <div role="button" onClick={this.iconLeft} tabIndex={0} onKeyDown={this.iconLeft}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-left" />
             </div>
             <img src={`/staticfiles/icons/icon_${value}.png`} alt="icon" className="icon" />
-            <div onClick={this.iconRight}>
+            <div role="button" onClick={this.iconRight} tabIndex={0} onKeyDown={this.iconRight}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-right" />
             </div>
           </div>

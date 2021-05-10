@@ -12,7 +12,7 @@ type Props = {
     history: any,
     match: {
         params: {
-            id: String,
+            id: string,
         }
     },
 };
@@ -49,14 +49,16 @@ class treasureHuntJoin extends React.Component<Props, State> {
 
     if (teamId) {
       participantApi
-        .getParticipant(teamId)
+        .getParticipant(teamId, idInstance)
         .then((response) => response.json())
         .then((participant) => {
-          this.setState({
-            teamId: participant.id,
-            teamName: participant.teamName,
-            hasJoined: true,
-          });
+          if (participant.id) {
+            this.setState({
+              teamId: participant.id,
+              teamName: participant.teamName,
+              hasJoined: true,
+            });
+          }
         });
     }
   }

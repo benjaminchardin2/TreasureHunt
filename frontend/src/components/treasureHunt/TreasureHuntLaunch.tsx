@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { I18n } from 'react-redux-i18n';
 import { Participant, TreasureHuntInstance } from './TreasureHuntTypes';
 import { HOME_PAGE_ROUTE, MESSAGE_PARTICIPANTS } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
@@ -20,7 +21,6 @@ type State = {
     treasureHuntInstance: TreasureHuntInstance,
     hide: boolean,
     participants: Participant[] | undefined,
-    ws: WebSocket | undefined
 };
 
 class TreasureHuntLaunch extends React.Component<Props, State> {
@@ -30,7 +30,6 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
       hide: false,
       treasureHuntInstance: undefined,
       participants: [],
-      ws: undefined,
     };
   }
 
@@ -53,10 +52,6 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
         .then((response) => response.json())
         .then((treasureHuntInstance) => this.setState({ treasureHuntInstance }));
       const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
-      this.setState({ ws });
-      ws.onopen = (evt: Event) => {
-        console.log('connected');
-      };
       ws.onmessage = (evt: MessageEvent) => {
         const data = JSON.parse(evt.data);
         if (data && data.message) {
@@ -93,6 +88,11 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
               <div className="participant-container">
                 <ParticipantContainer participants={participants} />
                 <CopyButton url={`${window.location.host}/treasurehunt/join/${treasureHuntInstance?.id}`} />
+                <div className="button-group">
+                  <button type="button" className="button primary" onClick={() => {}}>
+                    {I18n.t('actions.LAUNCH')}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

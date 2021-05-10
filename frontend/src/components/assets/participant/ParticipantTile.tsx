@@ -10,7 +10,7 @@ type Props = {
 function ParticipantTile({ participant, teamId }: Props) {
   return (
     <div className="participant">
-      <img src={`/staticFiles/icons/icon_${participant.icon}.png`} alt="icon" className="icon" />
+      <img src={`/staticfiles/icons/icon_${participant.icon}.png`} alt="icon" className="icon" />
       <div className="participant-infos">
         <div className="secondary-text">
           {`${I18n.t('treasurehunt.form.PARTICIPANT')} : ${participant.teamName} ${teamId && participant.id === teamId ? ` ${I18n.t('treasurehunt.form.YOU')}` : ''}`}
