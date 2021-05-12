@@ -7,6 +7,8 @@ import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi'
 import CluesContainer from '../assets/clues/CluesContainer';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
 import CopyButton from '../assets/utils/CopyButton';
+import { retrieveItemIfNotExpired, setItemWithExpiry } from '../../service/storageService';
+import participantApi from '../../network/apis/participantApi';
 
 type Props = {
     history: any,
@@ -39,14 +41,20 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
     const { history } = this.props;
 
     if (idInstance) {
-      localStorage.setItem('idInstance', idInstance);
+      setItemWithExpiry(idInstance, 'instanceId', 2);
     } else {
-      idInstance = localStorage.getItem('idInstance');
+      idInstance = retrieveItemIfNotExpired('instanceId');
       if (!idInstance) {
         history.push(HOME_PAGE_ROUTE);
       }
     }
     if (idInstance) {
+      participantApi
+        .getParticipants(idInstance)
+        .then((response) => response.json())
+        .then((participants) => {
+          this.setState({ participants });
+        });
       treasureHuntInstanceApi
         .get(idInstance)
         .then((response) => response.json())

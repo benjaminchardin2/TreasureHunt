@@ -14,6 +14,7 @@
     "final-form": "^4.20.1",
     "final-form-arrays": "^3.0.2",
     "http-proxy-middleware": "latest",
+    "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

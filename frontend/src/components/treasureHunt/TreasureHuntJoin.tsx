@@ -2,11 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Field, Form } from 'react-final-form';
 import { I18n } from 'react-redux-i18n';
+import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
 import IconChoice from '../assets/participant/IconChoice';
 import { MESSAGE_PARTICIPANTS } from '../../const';
 import participantApi from '../../network/apis/participantApi';
+import { retrieveItemIfNotExpired, setItemWithExpiry } from '../../service/storageService';
 
 type Props = {
     history: any,
@@ -43,9 +45,15 @@ class treasureHuntJoin extends React.Component<Props, State> {
       const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
       this.setState({ ws });
       ws.onmessage = this.onReceive;
+      participantApi
+        .getParticipants(idInstance)
+        .then((response) => response.json())
+        .then((participants) => {
+          this.setState({ participants });
+        });
     }
 
-    const teamId = localStorage.getItem('teamId');
+    const teamId = retrieveItemIfNotExpired('teamId');
 
     if (teamId) {
       participantApi
@@ -74,7 +82,7 @@ class treasureHuntJoin extends React.Component<Props, State> {
                 if (teamName) {
                   const team = data.content.filter((participant) => participant.teamName === teamName);
                   if (team.length > 0) {
-                    localStorage.setItem('teamId', team[0].id);
+                    setItemWithExpiry(team[0].id, 'teamId', 2);
                     this.setState({ teamId: team[0].id });
                   }
                 }

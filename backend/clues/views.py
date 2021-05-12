@@ -63,3 +63,9 @@ class TreasureHuntInstanceViewSet(ViewSet):
         participant = Participant.objects.filter(treasureHuntInstance=pk, id=kwargs['team_id']).first()
         serializer = ParticipantSerializer(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'], name='Get participants', url_path='participant')
+    def participantList(self, request, pk=None, **kwargs):
+        participants = Participant.objects.filter(treasureHuntInstance=pk)
+        serializer = ParticipantSerializer(participants, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
