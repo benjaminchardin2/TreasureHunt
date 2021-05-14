@@ -14,7 +14,7 @@ type State = {
     treasureHunts: TreasureHunt[]
 };
 
-class TreasureHuntSelection extends React.Component<Props, State> {
+class Selection extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,4 +75,4 @@ class TreasureHuntSelection extends React.Component<Props, State> {
     }
 }
 
-export default withRouter(TreasureHuntSelection);
+export default withRouter(Selection);

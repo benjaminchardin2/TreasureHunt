@@ -20,7 +20,7 @@ type State = {
     }
 };
 
-class TreasureHuntCreation extends React.Component<Props, State> {
+class Creation extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,4 +144,4 @@ class TreasureHuntCreation extends React.Component<Props, State> {
     }
 }
 
-export default withRouter(TreasureHuntCreation);
+export default withRouter(Creation);

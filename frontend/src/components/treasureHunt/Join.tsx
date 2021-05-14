@@ -6,7 +6,9 @@ import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
 import IconChoice from '../assets/participant/IconChoice';
-import { MESSAGE_PARTICIPANTS } from '../../const';
+import {
+  LAUNCH, MESSAGE_PARTICIPANTS, TREASURE_HUNT_PLAY, TREASURE_HUNT_PLAY_ROUTE, TREASURE_HUNT_SUPERVISION_ROUTE,
+} from '../../const';
 import participantApi from '../../network/apis/participantApi';
 import { retrieveItemIfNotExpired, setItemWithExpiry } from '../../service/storageService';
 
@@ -27,7 +29,7 @@ type State = {
     teamName: string | undefined,
 };
 
-class treasureHuntJoin extends React.Component<Props, State> {
+class Join extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +42,9 @@ class treasureHuntJoin extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const idInstance = this.props.match.params.id;
+    const { match } = this.props;
+    const { params } = match;
+    const idInstance = params.id;
     if (idInstance) {
       const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
       this.setState({ ws });
@@ -72,11 +76,16 @@ class treasureHuntJoin extends React.Component<Props, State> {
   }
 
     onReceive = (evt: MessageEvent) => {
+      const { history, match } = this.props;
+      const { params } = match;
+      const idInstance = params.id;
       const { teamName } = this.state;
-      const data = JSON.parse(evt.data);
-      if (data && data.message) {
-        switch (data.message) {
-          case MESSAGE_PARTICIPANTS:
+      if (evt.data === LAUNCH) {
+        history.push(`${TREASURE_HUNT_PLAY}/${idInstance}`);
+      } else {
+        const data = JSON.parse(evt.data);
+        if (data && data.message) {
+          if (data.message === MESSAGE_PARTICIPANTS) {
             if (data.content) {
               this.setState({ participants: data.content }, () => {
                 if (teamName) {
@@ -88,9 +97,7 @@ class treasureHuntJoin extends React.Component<Props, State> {
                 }
               });
             }
-            break;
-          default:
-            break;
+          }
         }
       }
     };
@@ -162,4 +169,4 @@ class treasureHuntJoin extends React.Component<Props, State> {
     }
 }
 
-export default withRouter(treasureHuntJoin);
+export default withRouter(Join);

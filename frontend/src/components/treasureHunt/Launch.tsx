@@ -2,7 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import { Participant, TreasureHuntInstance } from './TreasureHuntTypes';
-import { HOME_PAGE_ROUTE, MESSAGE_PARTICIPANTS } from '../../const';
+import {
+  HOME_PAGE_ROUTE,
+  LAUNCH,
+  MESSAGE_PARTICIPANTS,
+  TREASURE_HUNT_PLAY_ROUTE,
+  TREASURE_HUNT_SUPERVISION_ROUTE
+} from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
 import CluesContainer from '../assets/clues/CluesContainer';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
@@ -25,7 +31,7 @@ type State = {
     participants: Participant[] | undefined,
 };
 
-class TreasureHuntLaunch extends React.Component<Props, State> {
+class Launch extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +45,6 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
     const { location } = this.props;
     let idInstance = location?.state?.id;
     const { history } = this.props;
-
     if (idInstance) {
       setItemWithExpiry(idInstance, 'instanceId', 2);
     } else {
@@ -60,20 +65,35 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
         .then((response) => response.json())
         .then((treasureHuntInstance) => this.setState({ treasureHuntInstance }));
       const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
-      ws.onmessage = (evt: MessageEvent) => {
-        const data = JSON.parse(evt.data);
-        if (data && data.message) {
-          switch (data.message) {
-            case MESSAGE_PARTICIPANTS:
-              if (data.content) {
-                this.setState({ participants: data.content });
-              }
-              break;
-            default:
-              break;
+      ws.onmessage = this.onReceive;
+    }
+  }
+
+  onReceive = (evt: MessageEvent) => {
+    const { history } = this.props;
+    if (evt.data === LAUNCH) {
+      history.push(TREASURE_HUNT_SUPERVISION_ROUTE);
+    } else {
+      const data = JSON.parse(evt.data);
+      if (data && data.message) {
+        if (data.message === MESSAGE_PARTICIPANTS) {
+          if (data.content) {
+            this.setState({participants: data.content});
           }
         }
-      };
+      }
+    }
+  };
+
+  launchGame = () => {
+    const { treasureHuntInstance } = this.state;
+    if (treasureHuntInstance?.id) {
+      treasureHuntInstanceApi
+        .launch(treasureHuntInstance.id)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch();
     }
   }
 
@@ -97,7 +117,7 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
                 <ParticipantContainer participants={participants} />
                 <CopyButton url={`${window.location.host}/treasurehunt/join/${treasureHuntInstance?.id}`} />
                 <div className="button-group">
-                  <button type="button" className="button primary" onClick={() => {}}>
+                  <button type="button" className="button primary" onClick={this.launchGame}>
                     {I18n.t('actions.LAUNCH')}
                   </button>
                 </div>
@@ -110,4 +130,4 @@ class TreasureHuntLaunch extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(TreasureHuntLaunch);
+export default withRouter(Launch);

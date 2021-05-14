@@ -11,7 +11,6 @@ class ParticipantConsumer(JsonWebsocketConsumer):
     def connect(self):
         self.group_name = self.scope["url_route"]["kwargs"]["id"]
         self.accept()
-        id_instance = self.scope["url_route"]["kwargs"]["id"]
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
@@ -29,18 +28,20 @@ class ParticipantConsumer(JsonWebsocketConsumer):
                 async_to_sync(self.channel_layer.group_send)(
                     self.group_name,
                     {
-                        "type": "chat.message",
+                        "type": "participant.send",
                     },
                 )
             except utils.IntegrityError:
                 print('error')
 
-    def chat_message(self, event):
+    def participant_send(self, event):
         id_instance = self.scope["url_route"]["kwargs"]["id"]
         participants = Participant.objects.filter(treasureHuntInstance=id_instance)
         serializer_result = ParticipantSerializer(participants, many=True)
         self.send_json({
             "message": "participants",
             "content": serializer_result.data
-        }
-        )
+        })
+
+    def launch_game(self, event):
+        self.send(text_data="launch")
