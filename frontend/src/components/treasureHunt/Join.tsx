@@ -2,12 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Field, Form } from 'react-final-form';
 import { I18n } from 'react-redux-i18n';
-import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
 import ParticipantContainer from '../assets/participant/ParticipantContainer';
 import IconChoice from '../assets/participant/IconChoice';
 import {
-  LAUNCH, MESSAGE_PARTICIPANTS, TREASURE_HUNT_PLAY, TREASURE_HUNT_PLAY_ROUTE, TREASURE_HUNT_SUPERVISION_ROUTE,
+  LAUNCH, MESSAGE_PARTICIPANTS, TREASURE_HUNT_PLAY,
 } from '../../const';
 import participantApi from '../../network/apis/participantApi';
 import { retrieveItemIfNotExpired, setItemWithExpiry } from '../../service/storageService';
