@@ -13,6 +13,7 @@ from clues.serializers import TreasureHuntSerializer
 from clues.serializers import CluesSerializer
 from clues.serializers import ParticipantSerializer
 from clues.serializers import TreasureHuntInstanceSerializer
+from clues.serializers import SmallCluesSerializer
 from channels.layers import get_channel_layer
 import random
 
@@ -128,4 +129,12 @@ class TreasureHuntInstanceViewSet(ViewSet):
         return None
 
 
+class ParticipantViewSet(ViewSet):
+    queryset = Participant.objects.all()
 
+    @action(detail=True, methods=['get'], name='Get last obtained clue', url_path='clues/last')
+    def retrieve_last_obtained_clue(self, request, pk=None, **kwargs):
+        participant = Participant.objects.get(id=pk)
+        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by('-index').first()
+        serializer = SmallCluesSerializer(last_obtained_clue.clue)
+        return Response(serializer.data, status=status.HTTP_200_OK)

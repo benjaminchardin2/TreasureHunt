@@ -7,7 +7,7 @@ import {
   LAUNCH,
   MESSAGE_PARTICIPANTS,
   TREASURE_HUNT_PLAY_ROUTE,
-  TREASURE_HUNT_SUPERVISION_ROUTE
+  TREASURE_HUNT_SUPERVISION_ROUTE,
 } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
 import CluesContainer from '../assets/clues/CluesContainer';
@@ -78,7 +78,7 @@ class Launch extends React.Component<Props, State> {
       if (data && data.message) {
         if (data.message === MESSAGE_PARTICIPANTS) {
           if (data.content) {
-            this.setState({participants: data.content});
+            this.setState({ participants: data.content });
           }
         }
       }
@@ -90,9 +90,6 @@ class Launch extends React.Component<Props, State> {
     if (treasureHuntInstance?.id) {
       treasureHuntInstanceApi
         .launch(treasureHuntInstance.id)
-        .then((response) => {
-          console.log(response);
-        })
         .catch();
     }
   }
