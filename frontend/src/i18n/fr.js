@@ -19,6 +19,10 @@ const fr = {
       CLUES_MESSAGE_PLACEHOLDER: 'Au sud du peuplier',
       CLUES_ADD: 'Ajouter un indice',
       YOU: 'Vous',
+      FINAL_CLUE: 'Indice Final',
+      errors: {
+        FINAL: 'Il doit y avoir exactement 1 indice final',
+      }
     },
     LAUNCH: 'Lancer cette chasse au trésor',
   },
@@ -41,7 +45,7 @@ const fr = {
     SUCCESS: 'Url copiée avec succès',
     COPY: 'Copier le lien',
     LAUNCH: 'Lancer la partie',
-  }
+  },
 };
 
 export default fr;

@@ -7,13 +7,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant
+from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant, AttributedClues
 from clues.serializers import TreasureHuntSerializerCustom
 from clues.serializers import TreasureHuntSerializer
 from clues.serializers import CluesSerializer
 from clues.serializers import ParticipantSerializer
 from clues.serializers import TreasureHuntInstanceSerializer
 from channels.layers import get_channel_layer
+import random
 
 
 class TreasureHuntCreationViewSet(ViewSet):
@@ -76,5 +77,55 @@ class TreasureHuntInstanceViewSet(ViewSet):
     def launch(self, request, pk=None):
         channel_layer = get_channel_layer()
         group_name=pk
+        self.attributeClues(pk)
         async_to_sync(channel_layer.group_send)(group_name, {"type": "launch.game"})
         return Response(status=status.HTTP_200_OK)
+
+    def attributeClues(self, instance_id):
+        treasure_hunt_instance = TreasureHuntInstance.objects.get(id=instance_id)
+        treasure_hunt = treasure_hunt_instance.treasureHunt
+        clues = list(Clues.objects.filter(treasureHunt=treasure_hunt, final=False))
+        participants = Participant.objects.filter(treasureHuntInstance=treasure_hunt_instance)
+        for participant in participants:
+            if len(clues) == 0:
+                clues = list(Clues.objects.filter(treasureHunt=treasure_hunt, final=False))
+            AttributedClues.objects.create(
+            code='0000',
+            obtained=True,
+            participant=participant,
+            clue=clues.pop(),
+            index=0)
+        all_clues = list(Clues.objects.filter(treasureHunt=treasure_hunt, final=False))
+        for x in range(len(all_clues)-1):
+            available_clues = all_clues.copy()
+            for participant in participants:
+                previous_clue = AttributedClues.objects.filter(index=x, participant=participant).first()
+                clue_assigned = self.selectClue(participant, available_clues)
+                while(clue_assigned == None) :
+                    available_clues = all_clues.copy()
+                    clue_assigned = self.selectClue(participant, available_clues)
+                AttributedClues.objects.create(
+                            code=previous_clue.clue.code,
+                            obtained=False,
+                            participant=participant,
+                            clue=clue_assigned,
+                            index=x+1)
+                available_clues.remove(clue_assigned)
+        final_clue = Clues.objects.filter(treasureHunt=treasure_hunt, final=True).first()
+        for participant in participants:
+            previous_clue = AttributedClues.objects.filter(index=len(all_clues)-1, participant=participant).first()
+            AttributedClues.objects.create(code=previous_clue.clue.code,
+                                   obtained=False,
+                                   participant=participant,
+                                   clue=final_clue,
+                                   index=previous_clue.index+1)
+
+    def selectClue(self, participant, available_clues):
+        already_attributed_clues = list(AttributedClues.objects.filter(participant=participant).values_list('clue', flat=True))
+        clues_assignable = [x for x in available_clues if x.id not in already_attributed_clues]
+        if (len(clues_assignable) > 0):
+            return clues_assignable.pop(random.randint(0, len(clues_assignable)-1))
+        return None
+
+
+

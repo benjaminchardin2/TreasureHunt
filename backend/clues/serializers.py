@@ -61,10 +61,11 @@ class CluesSerializer(serializers.ModelSerializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
+    final = serializers.BooleanField()
 
     class Meta:
         model = CluesModel
-        fields = ('id', 'message', 'code', 'file')
+        fields = ('id', 'message', 'code', 'file', 'final')
 
 
 class TreasureHuntSerializer(serializers.ModelSerializer):
@@ -83,10 +84,11 @@ class CluesCreationSerializer(serializers.Serializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
+    final = serializers.BooleanField(default=False)
 
     class Meta:
         model = CluesModel
-        fields = ('message')
+        fields = ('message', 'final')
 
 
 class TreasureHuntSerializerCustom(serializers.Serializer):

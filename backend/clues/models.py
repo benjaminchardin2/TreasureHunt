@@ -24,6 +24,7 @@ class Clues(models.Model):
     code = models.CharField(max_length=4, default=random_string)
     file = models.FileField(default=None)
     treasureHunt = models.ForeignKey(TreasureHunt, to_field='id', on_delete=models.CASCADE, related_name="clues")
+    final = models.BooleanField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -50,3 +51,8 @@ class AttributedClues(models.Model):
     code = models.CharField(default=random_string, max_length=4)
     participant = models.ForeignKey(Participant, to_field='id', on_delete=models.CASCADE)
     clue = models.ForeignKey(Clues, to_field='id', on_delete=models.CASCADE)
+    obtained = models.BooleanField(default=False)
+    index = models.IntegerField()
+
+    class Meta:
+            unique_together = ('participant', 'index')

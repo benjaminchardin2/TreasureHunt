@@ -25,6 +25,12 @@
       margin-right: 10px;
       flex-grow: 1;
 
+      .errors {
+        font-size: 11px;
+        color: red;
+        padding: 3px;
+      }
+
       .treasure-hunt-creation-info {
         margin-top: 1rem;
       }

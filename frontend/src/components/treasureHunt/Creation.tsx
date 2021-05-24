@@ -33,7 +33,20 @@ class Creation extends React.Component<Props, State> {
     };
   }
 
+  validate = (values) => {
+    const errors: any = {};
+
+    const finalCount = values.clues.reduce((count, el) => (el.final ? count + 1 : count), 0);
+
+    if (finalCount !== 1) {
+      errors.final = I18n.t('treasurehunt.form.errors.FINAL');
+      return errors;
+    }
+    return undefined;
+  }
+
     onSubmit = (values) => {
+    if (!this.validate(values)) {
       const { history } = this.props;
       treasureHuntApi.create(values)
         .then((response) => response.json())
@@ -43,6 +56,9 @@ class Creation extends React.Component<Props, State> {
         .catch((error) => {
           console.log(`error: ${error}`);
         });
+    } else {
+      return this.validate(values)
+    }
     };
 
     render() {
@@ -94,6 +110,17 @@ class Creation extends React.Component<Props, State> {
                                             placeholder={I18n.t('treasurehunt.form.CLUES_MESSAGE_PLACEHOLDER')}
                                           />
                                         </div>
+                                        <div>
+                                          <label className="clues-label secondary-text">
+                                            {I18n.t('treasurehunt.form.FINAL_CLUE')}
+                                          </label>
+                                          <Field
+                                            name={`${clues}.final`}
+                                            component="input"
+                                            type="checkbox"
+                                            placeholder={I18n.t('treasurehunt.form.CLUES_MESSAGE_PLACEHOLDER')}
+                                          />
+                                        </div>
                                         <div className="clues-label">
                                           <Field
                                             name={`${clues}.file`}
@@ -115,6 +142,7 @@ class Creation extends React.Component<Props, State> {
                                   </div>
                                 ))}
                               </FieldArray>
+                              {formRenderProps.hasSubmitErrors && <div className="form-error">{I18n.t('treasurehunt.form.errors.FINAL')}</div>}
                               <button
                                 type="button"
                                 onClick={() => formRenderProps.form.mutators.push('clues', undefined)}

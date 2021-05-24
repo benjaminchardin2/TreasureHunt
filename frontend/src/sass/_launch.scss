@@ -6,6 +6,7 @@
   margin-bottom: 10px;
 
   .clues-container {
+    overflow: auto;
     display: flex;
     flex-direction: column;
     width: 20%;
