@@ -141,3 +141,19 @@ class ParticipantViewSet(ViewSet):
         last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by('-index').first()
         serializer = SmallCluesSerializer(last_obtained_clue.clue)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'], name='Try to get next clue', url_path='clues/next')
+    def try_to_get_next_clue(self, request, pk=None, **kwargs):
+        code = request.data
+        participant = Participant.objects.get(id=pk)
+        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by('-index').first()
+        next_clue = AttributedClues.objects\
+            .filter(obtained=False, code=code, participant=participant, index=(last_obtained_clue.index + 1))\
+            .first()
+        if next_clue is not None:
+            next_clue.obtained = True
+            next_clue.save()
+            serializer = SmallCluesSerializer(next_clue.clue)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(None, status=status.HTTP_200_OK)

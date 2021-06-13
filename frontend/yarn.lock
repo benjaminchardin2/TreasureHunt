@@ -9020,6 +9020,11 @@ react-i18nify@^1.11.8:
     moment "^2.22.1"
     prop-types "^15.6.1"
 
+react-input-verification-code@^0.6.4:
+  version "0.6.4"
+  resolved "https://npm.coreoz.com/repository/npm-group/react-input-verification-code/-/react-input-verification-code-0.6.4.tgz#b6fb1df5d096906f599072526b6e0e235c6025bc"
+  integrity sha512-feo9+t5WdxaO7x1N6IFFAXdKIXFGRgYxH8zDoNiqzlBCyXbKuiP+XDDQtecZsJ+mRKJFncc3vtNUvWP20y3GgQ==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://npm.coreoz.com/repository/npm-group/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

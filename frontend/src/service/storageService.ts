@@ -5,6 +5,11 @@ export const retrieveItemIfNotExpired = (storageKey: string) => {
   if (objectStr) {
     const object = JSON.parse(objectStr);
     if (moment().isBefore(object.expiry)) {
+      const storageItem = {
+        item: object.item,
+        expiry: moment().add(2, 'hours'),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(storageItem));
       return object.item;
     }
     localStorage.removeItem(storageKey);

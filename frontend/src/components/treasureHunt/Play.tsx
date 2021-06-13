@@ -7,6 +7,8 @@ import cluesApi from '../../network/apis/cluesApi';
 import File from '../assets/utils/File';
 import { HOME_PAGE_ROUTE } from '../../const';
 import CluePlay from '../assets/clues/CluePlay';
+import CodeInput from '../assets/clues/CodeInput';
+import Loader from "../assets/utils/Loader";
 
 type Props = {
   history: any
@@ -39,15 +41,22 @@ class Play extends React.Component<Props, State> {
     }
   }
 
+  updateClue = (clue: Clues) => {
+    this.setState({ actualClue: clue });
+  }
+
   render() {
     const { actualClue } = this.state;
+    const teamId = retrieveItemIfNotExpired('teamId');
 
     return (
       <div className="page">
         <div className="page-content">
           <div className="page-background">
             <div className="play-container">
-              <CluePlay clue={actualClue} />
+              {actualClue && <CluePlay clue={actualClue} />}
+              {!actualClue && <Loader />}
+              <CodeInput teamId={teamId} updateClue={this.updateClue} />
             </div>
           </div>
         </div>

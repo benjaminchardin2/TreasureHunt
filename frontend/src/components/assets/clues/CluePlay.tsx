@@ -1,7 +1,6 @@
 import React from 'react';
 import { I18n } from 'react-redux-i18n';
 import { Clues } from '../../treasureHunt/TreasureHuntTypes';
-import FilePreviewModal from '../utils/FilePreviewModal';
 import File from '../utils/File';
 
 type Props = {
@@ -21,7 +20,7 @@ function CluePlay({ clue }: Props) {
           <div className="clue-text secondary-text">{clue.message}</div>
           <div className="file-container">
             {clue.file && (
-            <div>
+            <div className="clue-file">
               <span>{I18n.t('treasurehunt.play.FILE')}</span>
               <File fileUrl={clue.file} />
             </div>
