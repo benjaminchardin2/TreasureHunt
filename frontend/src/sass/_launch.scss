@@ -1,0 +1,121 @@
+.launch-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .clues-container {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: $border-strong;
+    background-color: white;
+    flex-grow: 1;
+    margin-right: 50px;
+    &.hide {
+      flex-grow: unset;
+    }
+    .clue {
+      &.hide {
+        display: none;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $grey-control;
+      border: $border-light;
+      padding: 10px;
+      margin: 20px;
+
+      .clue-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+      }
+    }
+  }
+
+  .participant-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    border: $border-strong;
+    background-color: white;
+    margin-right: 50px;
+    .participants-list {
+      text-align: center;
+      padding: 10px;
+      flex-grow: 1;
+      width: 50%;
+      flex-direction: column;
+      display: flex;
+
+      .participant {
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+        border: $border-strong;
+        background-color: $grey-control;
+        box-shadow: 0 3px 6px $secondary;
+        align-items: center;
+
+        .icon {
+          width: 50px;
+          height: 50px;
+          margin-right: 15px;
+        }
+      }
+    }
+    .form {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .copy-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    .copy-button-text {
+      margin-right: 10px;
+      margin-left: 10px;
+      textarea {
+        border: none;
+        resize: none;
+        height: 75px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $desktop-width) {
+    .launch-container {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      .clues-container {
+        width: 75%;
+        flex-grow: unset;
+        margin-right: unset;
+      }
+
+      .participant-container {
+        margin-top: 15px;
+        width: 75%;
+        margin-right: unset;
+        padding-bottom: 10px;
+        .participants-list {
+          width: 100%;
+        }
+      }
+
+      .copy-button {
+        flex-direction: column;
+      }
+    }
+}

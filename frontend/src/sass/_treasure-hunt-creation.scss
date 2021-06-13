@@ -1,0 +1,127 @@
+.treasure-hunt-creation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .treasure-hunt-creation-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+  }
+
+  .treasure-hunt-creation-form {
+    border: $border-light;
+    min-height: 40%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    background-color: $grey-control;
+    text-align: center;
+
+    Form {
+      margin-left: 10px;
+      margin-right: 10px;
+      flex-grow: 1;
+
+      .errors {
+        font-size: 11px;
+        color: red;
+        padding: 3px;
+      }
+
+      .treasure-hunt-creation-info {
+        margin-top: 1rem;
+      }
+
+      .clues-form-group {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        margin-right: 20px;
+        background-color: $primary;
+
+        .clues-input {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin-top: 0.5rem;
+
+          .clues-description {
+            width: 90%;
+            display: flex;
+            align-items: center;
+
+            .clues-field {
+              flex-grow: 1;
+              background-color: white;
+              border-radius: 3px;
+              padding: 5px;
+              margin-right: 1rem;
+              display: flex;
+              align-items: center;
+
+              textarea {
+                width: 100%;
+                border: none;
+                overflow: auto;
+                outline: none;
+
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+              }
+
+              .clues-label {
+                display: flex;
+                align-items: center;
+                padding: 5px;
+                margin-right: 0.5rem;
+              }
+            }
+
+            .clues-file {
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $desktop-width) {
+    Form {
+      .clues-form-group {
+        margin-right: unset;
+
+        .clues-input {
+          align-items: center;
+          display: flex;
+
+          .clues-description {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+
+            .clues-field {
+              margin-left: 20px;
+              margin-right: 0;
+              width: 100%;
+            }
+          }
+
+          .clues-label {
+            margin-top: 0.5rem;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+

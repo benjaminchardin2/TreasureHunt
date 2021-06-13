@@ -1,13 +1,15 @@
 from django.urls import path, include
-from clues.views import TreasureHuntCreation, CluesView
+from clues.views import TreasureHuntInstanceViewSet, TreasureHuntCreationViewSet, CluesViewSet, ParticipantViewSet
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
 
-from clues.views import TreasureHuntInstanceCreation
+router = routers.SimpleRouter()
+router.register(r'treasureHuntInstance', TreasureHuntInstanceViewSet)
+router.register(r'clues', CluesViewSet)
+router.register(r'treasureHunt', TreasureHuntCreationViewSet)
+router.register(r'participant', ParticipantViewSet)
 
 urlpatterns = [
-                  path('api/treasureHunt', TreasureHuntCreation.as_view()),
-                  path('api/clues', CluesView.as_view()),
-                  path('api/treasureHuntInstance/<uuid:id>', TreasureHuntInstanceCreation.as_view()),
-                  path('api/treasureHuntInstance', TreasureHuntInstanceCreation.as_view())
+                  path('api/', include(router.urls)),
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

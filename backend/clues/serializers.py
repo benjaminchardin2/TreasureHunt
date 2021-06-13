@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from clues.models import Clues as CluesModel, TreasureHunt
+from clues.models import Clues as CluesModel, TreasureHunt, Participant, AttributedClues
 
 from clues.models import TreasureHuntInstance
 
@@ -61,10 +61,21 @@ class CluesSerializer(serializers.ModelSerializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
+    final = serializers.BooleanField()
 
     class Meta:
         model = CluesModel
-        fields = ('id', 'message', 'code', 'file')
+        fields = ('id', 'message', 'code', 'file', 'final')
+
+class SmallCluesSerializer(serializers.ModelSerializer):
+    message = serializers.CharField(min_length=0)
+    file = Base64ImageField(
+        max_length=None, use_url=True,
+    )
+
+    class Meta:
+        model = CluesModel
+        fields = ('message', 'file')
 
 
 class TreasureHuntSerializer(serializers.ModelSerializer):
@@ -83,9 +94,11 @@ class CluesCreationSerializer(serializers.Serializer):
     file = Base64ImageField(
         max_length=None, use_url=True,
     )
+    final = serializers.BooleanField(default=False)
+
     class Meta:
         model = CluesModel
-        fields = ('message')
+        fields = ('message', 'final')
 
 
 class TreasureHuntSerializerCustom(serializers.Serializer):
@@ -108,6 +121,7 @@ class TreasureHuntSerializerCustom(serializers.Serializer):
 class TreasureHuntInstanceSerializer(serializers.Serializer):
     id = serializers.UUIDField()
     treasureHunt = TreasureHuntSerializer(read_only=True)
+    started = serializers.BooleanField(read_only=True)
 
     def create(self, validated_data):
         id = validated_data.pop('id')
@@ -119,3 +133,19 @@ class TreasureHuntInstanceSerializer(serializers.Serializer):
         model = TreasureHuntInstance
         fields = '__all__'
         depth = 2
+
+
+class ParticipantSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+    teamName = serializers.CharField(min_length=0)
+    icon = serializers.IntegerField()
+
+    def create(self, validated_data):
+        id_instance = validated_data.pop('id')
+        treasureHuntInstance = TreasureHuntInstance.objects.get(id=id_instance)
+        participant = Participant.objects.create(**validated_data, treasureHuntInstance=treasureHuntInstance)
+        return participant
+
+    class Meta:
+        model = Participant
+        fields = '__all__'
