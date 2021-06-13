@@ -76,6 +76,9 @@ class TreasureHuntInstanceViewSet(ViewSet):
 
     @action(detail=True, methods=['post'], name='Launch Instance', url_path='launch')
     def launch(self, request, pk=None):
+        instance = TreasureHuntInstance.objects.get(id=pk)
+        instance.started = True
+        instance.save()
         channel_layer = get_channel_layer()
         group_name=pk
         self.attributeClues(pk)

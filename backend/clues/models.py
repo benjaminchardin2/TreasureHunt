@@ -32,6 +32,7 @@ class TreasureHuntInstance(models.Model):
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     treasureHunt = models.ForeignKey(TreasureHunt, to_field='id', on_delete=models.CASCADE)
+    started = models.BooleanField(default=False)
 
 
 class Participant(models.Model):

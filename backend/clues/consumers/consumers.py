@@ -6,6 +6,8 @@ from clues.models import Participant
 
 from clues.serializers import ParticipantSerializer
 
+from clues.models import TreasureHuntInstance
+
 
 class ParticipantConsumer(JsonWebsocketConsumer):
     def connect(self):
@@ -15,6 +17,10 @@ class ParticipantConsumer(JsonWebsocketConsumer):
             self.group_name,
             self.channel_name
         )
+        instance = TreasureHuntInstance.objects.get(id=self.group_name)
+        if instance.started:
+            async_to_sync(self.send(text_data="launch"))
+
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(self.group_name, self.channel_name)

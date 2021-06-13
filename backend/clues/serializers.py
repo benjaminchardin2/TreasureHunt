@@ -121,6 +121,7 @@ class TreasureHuntSerializerCustom(serializers.Serializer):
 class TreasureHuntInstanceSerializer(serializers.Serializer):
     id = serializers.UUIDField()
     treasureHunt = TreasureHuntSerializer(read_only=True)
+    started = serializers.BooleanField(read_only=True)
 
     def create(self, validated_data):
         id = validated_data.pop('id')

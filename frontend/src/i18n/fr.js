@@ -25,6 +25,11 @@ const fr = {
       }
     },
     LAUNCH: 'Lancer cette chasse au trésor',
+    play: {
+      MESSAGE: 'Message',
+      FILE: 'Bonus',
+      YOUR_CLUE: 'Votre indice',
+    }
   },
   clues: {
     CODE: 'Code :',

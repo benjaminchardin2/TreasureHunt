@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { Clues } from './TreasureHuntTypes';
 import { retrieveItemIfNotExpired } from '../../service/storageService';
 import cluesApi from '../../network/apis/cluesApi';
-import FilePreviewModal from '../assets/utils/FilePreviewModal';
+import File from '../assets/utils/File';
 import { HOME_PAGE_ROUTE } from '../../const';
+import CluePlay from '../assets/clues/CluePlay';
 
 type Props = {
   history: any
@@ -43,17 +44,13 @@ class Play extends React.Component<Props, State> {
 
     return (
       <div className="page">
-        {actualClue && (
-        <div className="clue">
-          <div className="classic-text bold">
-            {`${I18n.t('treasurehunt.form.CLUES')}`}
-          </div>
-          <div className="clue-infos">
-            <div className="secondary-text">{actualClue.message}</div>
-            <FilePreviewModal fileUrl={actualClue.file} />
+        <div className="page-content">
+          <div className="page-background">
+            <div className="play-container">
+              <CluePlay clue={actualClue} />
+            </div>
           </div>
         </div>
-        )}
       </div>
     );
   }
