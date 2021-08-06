@@ -41,6 +41,8 @@ class Participant(models.Model):
     teamName = models.CharField(max_length=100)
     icon = models.IntegerField()
     treasureHuntInstance = models.ForeignKey(TreasureHuntInstance, to_field='id', on_delete=models.CASCADE)
+    finishTime = models.DateTimeField(null=True)
+    currentClue = models.IntegerField(null=True)
 
     class Meta:
         unique_together = ('teamName', 'treasureHuntInstance')

@@ -13,7 +13,7 @@ import {
   HOME_PAGE_ROUTE,
   LOGIN_PAGE_ROUTE,
   REGISTER_PAGE_ROUTE,
-  TREASURE_HUNT_CREATION_ROUTE,
+  TREASURE_HUNT_CREATION_ROUTE, TREASURE_HUNT_FINISH_ROUTE,
   TREASURE_HUNT_JOIN_ROUTE,
   TREASURE_HUNT_LAUNCH_ROUTE, TREASURE_HUNT_PLAY_ROUTE,
   TREASURE_HUNT_SELECTION_ROUTE, TREASURE_HUNT_SUPERVISION_ROUTE,
@@ -24,6 +24,7 @@ import treasureHuntLaunch from './components/treasureHunt/Launch';
 import treasureHuntJoin from './components/treasureHunt/Join';
 import Supervision from './components/treasureHunt/Supervision';
 import Play from './components/treasureHunt/Play';
+import WinningOrder from "./components/treasureHunt/WinningOrder";
 
 library.add(faUser, faKey, faArrowLeft, faArrowRight);
 
@@ -75,6 +76,11 @@ function App() {
           exact
           path={TREASURE_HUNT_PLAY_ROUTE}
           component={Play}
+        />
+        <Route
+            exact
+            path={TREASURE_HUNT_FINISH_ROUTE}
+            component={WinningOrder}
         />
         <Route path="*" render={() => <Redirect to={HOME_PAGE_ROUTE} />} />
       </Switch>

@@ -26,6 +26,8 @@ const fr = {
     },
     LAUNCH: 'Lancer cette chasse au trésor',
     play: {
+      SHOW_CLUE: 'Voir l\'indice',
+      ENTER_CODE: 'Entrer un code',
       MESSAGE: 'Message',
       FILE: 'Bonus',
       YOUR_CLUE: 'Votre indice',
