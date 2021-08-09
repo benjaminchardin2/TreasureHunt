@@ -25,6 +25,7 @@ const fr = {
       }
     },
     LAUNCH: 'Lancer cette chasse au trésor',
+    FINISH_TIME: 'Temps de jeu',
     play: {
       SHOW_CLUE: 'Voir l\'indice',
       ENTER_CODE: 'Entrer un code',

@@ -22,4 +22,5 @@ export type Participant = {
     icon: string,
     teamName: string,
     id: string,
+    finishTime?: string,
 }

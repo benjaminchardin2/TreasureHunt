@@ -33,6 +33,7 @@ class TreasureHuntInstance(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     treasureHunt = models.ForeignKey(TreasureHunt, to_field='id', on_delete=models.CASCADE)
     started = models.BooleanField(default=False)
+    started_at = models.DateTimeField(null=True)
 
 
 class Participant(models.Model):

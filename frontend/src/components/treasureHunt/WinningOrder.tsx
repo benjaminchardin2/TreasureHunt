@@ -1,15 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Field, Form } from 'react-final-form';
-import { I18n } from 'react-redux-i18n';
+import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
-import ParticipantContainer from '../assets/participant/ParticipantContainer';
-import IconChoice from '../assets/participant/IconChoice';
 import {
   MESSAGE_PARTICIPANTS,
 } from '../../const';
 import participantApi from '../../network/apis/participantApi';
 import { retrieveItemIfNotExpired } from '../../service/storageService';
+import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
+import ParticipantTile from '../assets/participant/ParticipantTile';
 
 type Props = {
     match: {
@@ -21,8 +20,7 @@ type Props = {
 
 type State = {
     finishingOrder: Participant[] | undefined,
-    hasJoined: boolean,
-    teamId: string | undefined,
+    startTime: moment.Moment | undefined,
 };
 
 class WinningOrder extends React.Component<Props, State> {
@@ -30,8 +28,7 @@ class WinningOrder extends React.Component<Props, State> {
     super(props);
     this.state = {
       finishingOrder: [],
-      hasJoined: false,
-      teamId: undefined,
+      startTime: undefined,
     };
   }
 
@@ -46,6 +43,15 @@ class WinningOrder extends React.Component<Props, State> {
         .then((finishingOrder) => {
           this.setState({ finishingOrder });
         });
+      treasureHuntInstanceApi
+        .getStartTime(idInstance)
+        .then((response) => response.text())
+        .then((startTime) => {
+          const startTimeMoment = moment(startTime);
+          this.setState({
+            startTime: startTimeMoment,
+          });
+        });
     }
   }
 
@@ -54,16 +60,44 @@ class WinningOrder extends React.Component<Props, State> {
       if (data && data.message) {
         if (data.message === MESSAGE_PARTICIPANTS) {
           if (data.content) {
-            this.setState({ finishingOrder: data.content }, () => {
-            });
+            this.setState({ finishingOrder: data.content });
           }
         }
       }
     };
 
     render() {
+      const { startTime, finishingOrder } = this.state;
+      const teamId = retrieveItemIfNotExpired('teamId');
+
       return (
-        <div className="page" />
+        <div className="page">
+          <div className="page-content">
+            <div className="page-background">
+              <div className="launch-container">
+                <div className="participant-container">
+                  <div className="participants-list">
+                    {
+                startTime && finishingOrder && finishingOrder.length > 0
+                && finishingOrder.map(
+                  (team, index) => (
+                    <div key={team.id}>
+                      <ParticipantTile
+                        participant={team}
+                        teamId={teamId}
+                        startTime={startTime}
+                        rank={index + 1}
+                      />
+                    </div>
+                  ),
+                )
+              }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
 }

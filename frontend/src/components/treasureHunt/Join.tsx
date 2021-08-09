@@ -45,6 +45,7 @@ class Join extends React.Component<Props, State> {
     const { params } = match;
     const idInstance = params.id;
     if (idInstance) {
+      setItemWithExpiry(idInstance, 'instanceId', 2);
       const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
       this.setState({ ws });
       ws.onmessage = this.onReceive;

@@ -44,7 +44,7 @@ class Play extends React.Component<Props, State> {
   }
 
   updateClue = (clue: Clues) => {
-    this.setState({ actualClue: clue });
+    this.setState({ actualClue: clue, showCode: false });
   };
 
   handleOpenModal = () => {

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import cluesApi from '../../../network/apis/cluesApi';
 import treasure from '../../../img/treasure.png';
-import {HOME_PAGE_ROUTE, TREASURE_HUNT_FINISH_ROUTE} from '../../../const';
+import { HOME_PAGE_ROUTE, TREASURE_HUNT_FINISH_ROUTE } from '../../../const';
 import cup from '../../../img/cup.png';
 
 type Props = {

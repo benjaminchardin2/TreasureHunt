@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+from django.http import HttpResponse
 
 from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant, AttributedClues
 from clues.serializers.treasureHuntSerializers import TreasureHuntSerializerCustom
@@ -81,10 +82,16 @@ class TreasureHuntInstanceViewSet(ViewSet):
         serializer = ParticipantSerializer(participants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], name='Get start date', url_path='start-time')
+    def startDate(self, request, pk=None, **kwargs):
+        treasure_hunt_instance = TreasureHuntInstance.objects.filter(id=pk).first()
+        return HttpResponse(treasure_hunt_instance.started_at, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['post'], name='Launch Instance', url_path='launch')
     def launch(self, request, pk=None):
         instance = TreasureHuntInstance.objects.get(id=pk)
         instance.started = True
+        instance.started_at = timezone.now()
         instance.save()
         channel_layer = get_channel_layer()
         group_name = pk
@@ -178,6 +185,6 @@ class ParticipantViewSet(ViewSet):
                 serializer = SmallCluesSerializer(final_clue)
                 channel_layer = get_channel_layer()
                 group_name = str(participant.treasureHuntInstance.id)
-                async_to_sync(channel_layer.group_send)(group_name, {"type": "launch.game"})
+                async_to_sync(channel_layer.group_send)(group_name, {"type": "participant.finish.send"})
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(None, status=status.HTTP_200_OK)
