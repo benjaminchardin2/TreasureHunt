@@ -67,7 +67,7 @@ class ParticipantFinishConsumer(JsonWebsocketConsumer):
 
     def participant_finish_send(self, event):
         id_instance = self.scope["url_route"]["kwargs"]["id"]
-        participants = Participant.objects.filter(id_instance=id_instance, finishTime__isnull=False).order_by('finishTime')
+        participants = Participant.objects.filter(treasureHuntInstance_id=id_instance, finishTime__isnull=False).order_by('finishTime')
         serializer_result = ParticipantSerializer(participants, many=True)
         self.send_json({
             "message": "participants",
