@@ -1,6 +1,7 @@
 import React from 'react';
 import { FieldRenderProps } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {HTTP_BACKEND_URL} from "../../../const";
 
 type State = {
     icon: number,
@@ -37,7 +38,7 @@ class IconChoice extends React.Component<FieldRenderProps<number, any>, State> {
             <div role="button" onClick={this.iconLeft} tabIndex={0} onKeyDown={this.iconLeft}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-left" />
             </div>
-            <img src={`/staticfiles/icons/icon_${value}.png`} alt="icon" className="icon" />
+            <img src={`${HTTP_BACKEND_URL}/static/icons/icon_${value}.png`} alt="icon" className="icon" />
             <div role="button" onClick={this.iconRight} tabIndex={0} onKeyDown={this.iconRight}>
               <FontAwesomeIcon className="icon-arrow" icon="arrow-right" />
             </div>

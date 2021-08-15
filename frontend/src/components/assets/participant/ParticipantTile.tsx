@@ -27,7 +27,7 @@ function ParticipantTile({
         {' '}
       </div>
       )}
-      <img src={`/staticfiles/icons/icon_${participant.icon}.png`} alt="icon" className="icon" />
+      <img src={`/static/icons/icon_${participant.icon}.png`} alt="icon" className="icon" />
       <div className="participant-infos">
         <div className="secondary-text">
           {`${I18n.t('treasurehunt.form.PARTICIPANT')} : ${participant.teamName} ${teamId && participant.id === teamId ? ` ${I18n.t('treasurehunt.form.YOU')}` : ''}`}

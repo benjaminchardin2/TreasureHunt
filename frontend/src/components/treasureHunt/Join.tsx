@@ -7,6 +7,7 @@ import ParticipantContainer from '../assets/participant/ParticipantContainer';
 import IconChoice from '../assets/participant/IconChoice';
 import {
   BACKEND_URL,
+  HTTP_BACKEND_URL,
   LAUNCH, MESSAGE_PARTICIPANTS, TREASURE_HUNT_PLAY,
 } from '../../const';
 import participantApi from '../../network/apis/participantApi';
@@ -47,7 +48,7 @@ class Join extends React.Component<Props, State> {
     const idInstance = params.id;
     if (idInstance) {
       setItemWithExpiry(idInstance, 'instanceId', 2);
-      const ws = new WebSocket(`ws://${BACKEND_URL}/ws/treasurehunt/${idInstance}/`);
+      const ws = new WebSocket(`wss://${BACKEND_URL}/ws/treasurehunt/${idInstance}/`);
       this.setState({ ws });
       ws.onmessage = this.onReceive;
       participantApi

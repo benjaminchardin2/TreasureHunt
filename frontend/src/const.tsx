@@ -17,4 +17,5 @@ export const TREASURE_HUNT_FINISH_ROUTE = `${TREASURE_HUNT_ROUTE}/finish`;
 export const MESSAGE_PARTICIPANTS = 'participants';
 export const LAUNCH = 'launch';
 
-export const BACKEND_URL = 'treasure-hunt-auberge-back.herokuapp.com:8000/'
+export const HTTP_BACKEND_URL = 'https://treasure-hunt-auberge-back.herokuapp.com'
+export const BACKEND_URL = 'treasure-hunt-auberge-back.herokuapp.com'

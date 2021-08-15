@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
 import {
   BACKEND_URL,
+  HTTP_BACKEND_URL,
   MESSAGE_PARTICIPANTS,
 } from '../../const';
 import participantApi from '../../network/apis/participantApi';
@@ -31,7 +32,7 @@ class WinningOrder extends React.Component<Props, State> {
   componentDidMount() {
     const idInstance = retrieveItemIfNotExpired('instanceId');
     if (idInstance) {
-      const ws = new WebSocket(`ws://${BACKEND_URL}/ws/treasurehunt/${idInstance}/finish`);
+      const ws = new WebSocket(`wss://${BACKEND_URL}/ws/treasurehunt/${idInstance}/finish`);
       ws.onmessage = this.onReceive;
       participantApi
         .getFinishingOrder(idInstance)

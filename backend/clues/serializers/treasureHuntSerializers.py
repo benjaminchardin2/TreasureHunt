@@ -22,7 +22,8 @@ class TreasureHuntSerializerCustom(serializers.ModelSerializer):
     clues = CluesCreationSerializer(many=True)
     name = serializers.CharField(min_length=0)
     user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault()
+        default=serializers.CurrentUserDefault(),
+        write_only=True
     )
 
     def create(self, validated_data):
