@@ -18,9 +18,12 @@ class TreasureHuntSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class TreasureHuntSerializerCustom(serializers.Serializer):
+class TreasureHuntSerializerCustom(serializers.ModelSerializer):
     clues = CluesCreationSerializer(many=True)
     name = serializers.CharField(min_length=0)
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
 
     def create(self, validated_data):
         clues_details = validated_data.pop('clues')
@@ -32,7 +35,7 @@ class TreasureHuntSerializerCustom(serializers.Serializer):
 
     class Meta:
         model = TreasureHunt
-        fields = ('id', 'name', 'clues')
+        fields = ('id', 'name', 'clues', 'user')
 
 
 class TreasureHuntInstanceSerializer(serializers.Serializer):

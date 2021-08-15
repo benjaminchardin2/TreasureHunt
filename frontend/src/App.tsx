@@ -22,9 +22,8 @@ import TreasureHuntCreation from './components/treasureHunt/Creation';
 import treasureHuntSelection from './components/treasureHunt/Selection';
 import treasureHuntLaunch from './components/treasureHunt/Launch';
 import treasureHuntJoin from './components/treasureHunt/Join';
-import Supervision from './components/treasureHunt/Supervision';
 import Play from './components/treasureHunt/Play';
-import WinningOrder from "./components/treasureHunt/WinningOrder";
+import WinningOrder from './components/treasureHunt/WinningOrder';
 
 library.add(faUser, faKey, faArrowLeft, faArrowRight);
 
@@ -70,7 +69,7 @@ function App() {
         <Route
           exact
           path={TREASURE_HUNT_SUPERVISION_ROUTE}
-          component={Supervision}
+          component={WinningOrder}
         />
         <Route
           exact
@@ -78,11 +77,11 @@ function App() {
           component={Play}
         />
         <Route
-            exact
-            path={TREASURE_HUNT_FINISH_ROUTE}
-            component={WinningOrder}
+          exact
+          path={TREASURE_HUNT_FINISH_ROUTE}
+          component={WinningOrder}
         />
-        <Route path="*" render={() => <Redirect to={HOME_PAGE_ROUTE} />} />
+        <Route path="*" render={() => <Redirect to={LOGIN_PAGE_ROUTE} />} />
       </Switch>
     </div>
   );

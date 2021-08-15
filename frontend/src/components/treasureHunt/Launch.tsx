@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 import { Participant, TreasureHuntInstance } from './TreasureHuntTypes';
 import {
+  BACKEND_URL,
   HOME_PAGE_ROUTE,
   LAUNCH,
   MESSAGE_PARTICIPANTS,
-  TREASURE_HUNT_PLAY_ROUTE,
   TREASURE_HUNT_SUPERVISION_ROUTE,
 } from '../../const';
 import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi';
@@ -64,7 +64,7 @@ class Launch extends React.Component<Props, State> {
         .get(idInstance)
         .then((response) => response.json())
         .then((treasureHuntInstance) => this.setState({ treasureHuntInstance }));
-      const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/`);
+      const ws = new WebSocket(`ws://${BACKEND_URL}/ws/treasurehunt/${idInstance}/`);
       ws.onmessage = this.onReceive;
     }
   }

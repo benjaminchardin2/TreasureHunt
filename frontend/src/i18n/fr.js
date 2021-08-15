@@ -1,8 +1,11 @@
 const fr = {
   register: {
-    REGISTER: 'S\'enregistrer',
+    GO_TO_REGISTER: 'S\'enregistrer',
     PASSWORD_NOT_MATCHING: 'Les mots de passes ne correspondent pas',
     LETS_GO: 'C\'est parti',
+    GO_TO_LOGIN: 'Se connecter',
+    LOGIN: 'Connection',
+    REGISTER: 'S\'inscrire',
   },
   home: {
     CREATE: 'Créer une chasse au trésor',
@@ -22,7 +25,7 @@ const fr = {
       FINAL_CLUE: 'Indice Final',
       errors: {
         FINAL: 'Il doit y avoir exactement 1 indice final',
-      }
+      },
     },
     LAUNCH: 'Lancer cette chasse au trésor',
     FINISH_TIME: 'Temps de jeu',
@@ -32,7 +35,7 @@ const fr = {
       MESSAGE: 'Message',
       FILE: 'Bonus',
       YOUR_CLUE: 'Votre indice',
-    }
+    },
   },
   clues: {
     CODE: 'Code :',

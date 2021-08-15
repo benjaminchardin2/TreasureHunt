@@ -1,8 +1,8 @@
-import HttpClient from '../httpClient';
+import AuthClient from '../authClient';
 
 const treasureHuntApi = {
-  create: (values: object) => new HttpClient('/treasureHunt/', 'POST').jsonBody(values).execute(),
-  get: () => new HttpClient('/treasureHunt/', 'GET').execute(),
+  create: (values: object) => new AuthClient('/treasureHunt/', 'POST').jsonBody(values).execute(),
+  get: () => new AuthClient('/treasureHunt/', 'GET').execute(),
 };
 
 export default treasureHuntApi;

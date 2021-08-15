@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.utils import timezone
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -22,14 +22,18 @@ import random
 
 class TreasureHuntCreationViewSet(ViewSet):
     queryset = TreasureHunt.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request):
-        treasureHunt = TreasureHunt.objects.all()
+        treasureHunt = TreasureHunt.objects.filter(user=request.user.id)
         serializer = TreasureHuntSerializer(treasureHunt, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        serializer = TreasureHuntSerializerCustom(data=request.data)
+        context = {
+            "request": self.request,
+        }
+        serializer = TreasureHuntSerializerCustom(data=request.data, context=context)
 
         if serializer.is_valid():
             serializer.save()

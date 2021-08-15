@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Participant } from './TreasureHuntTypes';
 import {
+  BACKEND_URL,
   MESSAGE_PARTICIPANTS,
 } from '../../const';
 import participantApi from '../../network/apis/participantApi';
@@ -11,11 +12,6 @@ import treasureHuntInstanceApi from '../../network/apis/treasureHuntInstanceApi'
 import ParticipantTile from '../assets/participant/ParticipantTile';
 
 type Props = {
-    match: {
-        params: {
-            id: string,
-        }
-    },
 };
 
 type State = {
@@ -35,7 +31,7 @@ class WinningOrder extends React.Component<Props, State> {
   componentDidMount() {
     const idInstance = retrieveItemIfNotExpired('instanceId');
     if (idInstance) {
-      const ws = new WebSocket(`ws://localhost:8000/ws/treasurehunt/${idInstance}/finish`);
+      const ws = new WebSocket(`ws://${BACKEND_URL}/ws/treasurehunt/${idInstance}/finish`);
       ws.onmessage = this.onReceive;
       participantApi
         .getFinishingOrder(idInstance)
