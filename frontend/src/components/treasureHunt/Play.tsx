@@ -1,14 +1,14 @@
 import React from 'react';
-import { I18n } from 'react-redux-i18n';
 import { withRouter } from 'react-router-dom';
+import ReactModal from 'react-modal';
+import { I18n } from 'react-redux-i18n';
 import { Clues } from './TreasureHuntTypes';
 import { retrieveItemIfNotExpired } from '../../service/storageService';
 import cluesApi from '../../network/apis/cluesApi';
-import File from '../assets/utils/File';
 import { HOME_PAGE_ROUTE } from '../../const';
 import CluePlay from '../assets/clues/CluePlay';
 import CodeInput from '../assets/clues/CodeInput';
-import Loader from "../assets/utils/Loader";
+import Loader from '../assets/utils/Loader';
 
 type Props = {
   history: any
@@ -16,6 +16,7 @@ type Props = {
 
 type State = {
   actualClue: Clues | undefined,
+  showCode: boolean,
 };
 
 class Play extends React.Component<Props, State> {
@@ -23,6 +24,7 @@ class Play extends React.Component<Props, State> {
     super(props);
     this.state = {
       actualClue: undefined,
+      showCode: false,
     };
   }
 
@@ -42,11 +44,19 @@ class Play extends React.Component<Props, State> {
   }
 
   updateClue = (clue: Clues) => {
-    this.setState({ actualClue: clue });
+    this.setState({ actualClue: clue, showCode: false });
+  };
+
+  handleOpenModal = () => {
+    this.setState({ showCode: true });
   }
 
+  handleCloseModal = () => {
+    this.setState({ showCode: false });
+  };
+
   render() {
-    const { actualClue } = this.state;
+    const { actualClue, showCode } = this.state;
     const teamId = retrieveItemIfNotExpired('teamId');
 
     return (
@@ -56,7 +66,22 @@ class Play extends React.Component<Props, State> {
             <div className="play-container">
               {actualClue && <CluePlay clue={actualClue} />}
               {!actualClue && <Loader />}
-              <CodeInput teamId={teamId} updateClue={this.updateClue} />
+              <ReactModal
+                isOpen={showCode}
+                contentLabel="Modal code validation"
+                className="fullscreen-modal"
+              >
+                <CodeInput teamId={teamId} updateClue={this.updateClue} closeModal={this.handleCloseModal} />
+              </ReactModal>
+              <div className="button-group">
+                <button
+                  type="button"
+                  className="button primary"
+                  onClick={this.handleOpenModal}
+                >
+                  {I18n.t('treasurehunt.play.ENTER_CODE')}
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ class TreasureHunt(models.Model):
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="treasureHunt")
 
 
 class Clues(models.Model):
@@ -33,6 +34,7 @@ class TreasureHuntInstance(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     treasureHunt = models.ForeignKey(TreasureHunt, to_field='id', on_delete=models.CASCADE)
     started = models.BooleanField(default=False)
+    started_at = models.DateTimeField(null=True)
 
 
 class Participant(models.Model):
@@ -41,6 +43,8 @@ class Participant(models.Model):
     teamName = models.CharField(max_length=100)
     icon = models.IntegerField()
     treasureHuntInstance = models.ForeignKey(TreasureHuntInstance, to_field='id', on_delete=models.CASCADE)
+    finishTime = models.DateTimeField(null=True)
+    currentClue = models.IntegerField(null=True)
 
     class Meta:
         unique_together = ('teamName', 'treasureHuntInstance')

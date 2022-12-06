@@ -2,32 +2,38 @@ from asgiref.sync import async_to_sync
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import status
+from django.utils import timezone
+from rest_framework import status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+from django.http import HttpResponse
 
 from clues.models import TreasureHunt, Clues, TreasureHuntInstance, Participant, AttributedClues
-from clues.serializers import TreasureHuntSerializerCustom
-from clues.serializers import TreasureHuntSerializer
-from clues.serializers import CluesSerializer
-from clues.serializers import ParticipantSerializer
-from clues.serializers import TreasureHuntInstanceSerializer
-from clues.serializers import SmallCluesSerializer
+from clues.serializers.treasureHuntSerializers import TreasureHuntSerializerCustom
+from clues.serializers.treasureHuntSerializers import TreasureHuntSerializer
+from clues.serializers.clueSerializers import CluesSerializer
+from clues.serializers.participantSerializers import ParticipantSerializer
+from clues.serializers.treasureHuntSerializers import TreasureHuntInstanceSerializer
+from clues.serializers.clueSerializers import SmallCluesSerializer
 from channels.layers import get_channel_layer
 import random
 
 
 class TreasureHuntCreationViewSet(ViewSet):
     queryset = TreasureHunt.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request):
-        treasureHunt = TreasureHunt.objects.all()
+        treasureHunt = TreasureHunt.objects.filter(user=request.user.id)
         serializer = TreasureHuntSerializer(treasureHunt, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        serializer = TreasureHuntSerializerCustom(data=request.data)
+        context = {
+            "request": self.request,
+        }
+        serializer = TreasureHuntSerializerCustom(data=request.data, context=context)
 
         if serializer.is_valid():
             serializer.save()
@@ -62,6 +68,12 @@ class TreasureHuntInstanceViewSet(ViewSet):
         serializer = TreasureHuntInstanceSerializer(treasureHuntInstance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], name='Get participants', url_path='participants/finish')
+    def participantFinishOrder(self, request, pk=None, **kwargs):
+        participants = Participant.objects.filter(finishTime__isnull=False, treasureHuntInstance=pk).order_by('finishTime')
+        serializer = ParticipantSerializer(participants, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['get'], name='Get participant', url_path='participant/(?P<team_id>[^/.]+)')
     def participant(self, request, pk=None, **kwargs):
         participant = Participant.objects.filter(treasureHuntInstance=pk, id=kwargs['team_id']).first()
@@ -74,13 +86,19 @@ class TreasureHuntInstanceViewSet(ViewSet):
         serializer = ParticipantSerializer(participants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], name='Get start date', url_path='start-time')
+    def startDate(self, request, pk=None, **kwargs):
+        treasure_hunt_instance = TreasureHuntInstance.objects.filter(id=pk).first()
+        return HttpResponse(treasure_hunt_instance.started_at, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['post'], name='Launch Instance', url_path='launch')
     def launch(self, request, pk=None):
         instance = TreasureHuntInstance.objects.get(id=pk)
         instance.started = True
+        instance.started_at = timezone.now()
         instance.save()
         channel_layer = get_channel_layer()
-        group_name=pk
+        group_name = pk
         self.attributeClues(pk)
         async_to_sync(channel_layer.group_send)(group_name, {"type": "launch.game"})
         return Response(status=status.HTTP_200_OK)
@@ -94,41 +112,42 @@ class TreasureHuntInstanceViewSet(ViewSet):
             if len(clues) == 0:
                 clues = list(Clues.objects.filter(treasureHunt=treasure_hunt, final=False))
             AttributedClues.objects.create(
-            code='0000',
-            obtained=True,
-            participant=participant,
-            clue=clues.pop(),
-            index=0)
+                code='0000',
+                obtained=True,
+                participant=participant,
+                clue=clues.pop(),
+                index=0)
         all_clues = list(Clues.objects.filter(treasureHunt=treasure_hunt, final=False))
-        for x in range(len(all_clues)-1):
+        for x in range(len(all_clues) - 1):
             available_clues = all_clues.copy()
             for participant in participants:
                 previous_clue = AttributedClues.objects.filter(index=x, participant=participant).first()
                 clue_assigned = self.selectClue(participant, available_clues)
-                while(clue_assigned == None) :
+                while (clue_assigned == None):
                     available_clues = all_clues.copy()
                     clue_assigned = self.selectClue(participant, available_clues)
                 AttributedClues.objects.create(
-                            code=previous_clue.clue.code,
-                            obtained=False,
-                            participant=participant,
-                            clue=clue_assigned,
-                            index=x+1)
+                    code=previous_clue.clue.code,
+                    obtained=False,
+                    participant=participant,
+                    clue=clue_assigned,
+                    index=x + 1)
                 available_clues.remove(clue_assigned)
         final_clue = Clues.objects.filter(treasureHunt=treasure_hunt, final=True).first()
         for participant in participants:
-            previous_clue = AttributedClues.objects.filter(index=len(all_clues)-1, participant=participant).first()
+            previous_clue = AttributedClues.objects.filter(index=len(all_clues) - 1, participant=participant).first()
             AttributedClues.objects.create(code=previous_clue.clue.code,
-                                   obtained=False,
-                                   participant=participant,
-                                   clue=final_clue,
-                                   index=previous_clue.index+1)
+                                           obtained=False,
+                                           participant=participant,
+                                           clue=final_clue,
+                                           index=previous_clue.index + 1)
 
     def selectClue(self, participant, available_clues):
-        already_attributed_clues = list(AttributedClues.objects.filter(participant=participant).values_list('clue', flat=True))
+        already_attributed_clues = list(
+            AttributedClues.objects.filter(participant=participant).values_list('clue', flat=True))
         clues_assignable = [x for x in available_clues if x.id not in already_attributed_clues]
         if (len(clues_assignable) > 0):
-            return clues_assignable.pop(random.randint(0, len(clues_assignable)-1))
+            return clues_assignable.pop(random.randint(0, len(clues_assignable) - 1))
         return None
 
 
@@ -138,7 +157,8 @@ class ParticipantViewSet(ViewSet):
     @action(detail=True, methods=['get'], name='Get last obtained clue', url_path='clues/last')
     def retrieve_last_obtained_clue(self, request, pk=None, **kwargs):
         participant = Participant.objects.get(id=pk)
-        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by('-index').first()
+        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by(
+            '-index').first()
         serializer = SmallCluesSerializer(last_obtained_clue.clue)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -146,14 +166,29 @@ class ParticipantViewSet(ViewSet):
     def try_to_get_next_clue(self, request, pk=None, **kwargs):
         code = request.data
         participant = Participant.objects.get(id=pk)
-        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by('-index').first()
-        next_clue = AttributedClues.objects\
-            .filter(obtained=False, code=code, participant=participant, index=(last_obtained_clue.index + 1))\
+        last_obtained_clue = AttributedClues.objects.filter(obtained=True, participant=participant).order_by(
+            '-index').first()
+        next_clue = AttributedClues.objects \
+            .filter(obtained=False, code=code, participant=participant, index=(last_obtained_clue.index + 1)) \
             .first()
         if next_clue is not None:
             next_clue.obtained = True
             next_clue.save()
+            participant.currentClue = next_clue.index
+            participant.save()
+            next_clue.clue.final = False
             serializer = SmallCluesSerializer(next_clue.clue)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
+            final_clue = Clues.objects \
+                .filter(code=code, final=True) \
+                .first()
+            if final_clue is not None:
+                participant.finishTime = timezone.now()
+                participant.save()
+                serializer = SmallCluesSerializer(final_clue)
+                channel_layer = get_channel_layer()
+                group_name = str(participant.treasureHuntInstance.id)
+                async_to_sync(channel_layer.group_send)(group_name, {"type": "participant.finish.send"})
+                return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(None, status=status.HTTP_200_OK)

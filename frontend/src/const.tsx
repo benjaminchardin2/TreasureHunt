@@ -12,6 +12,10 @@ export const TREASURE_HUNT_SUPERVISION_ROUTE = `${TREASURE_HUNT_ROUTE}/supervisi
 export const TREASURE_HUNT_PLAY = `${TREASURE_HUNT_ROUTE}/play`;
 export const TREASURE_HUNT_PLAY_ROUTE = `${TREASURE_HUNT_ROUTE}/play/:id`;
 export const TREASURE_HUNT_JOIN_ROUTE = `${TREASURE_HUNT_ROUTE}/join/:id`;
+export const TREASURE_HUNT_FINISH_ROUTE = `${TREASURE_HUNT_ROUTE}/finish`;
 
 export const MESSAGE_PARTICIPANTS = 'participants';
 export const LAUNCH = 'launch';
+
+export const HTTP_BACKEND_URL = 'https://treasure-hunt-auberge-back.herokuapp.com'
+export const BACKEND_URL = 'treasure-hunt-auberge-back.herokuapp.com'

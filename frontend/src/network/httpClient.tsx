@@ -1,5 +1,5 @@
 import { getError } from './handleError';
-import { baseApiUrl } from '../const';
+import {HTTP_BACKEND_URL, baseApiUrl} from '../const';
 
 const stringify = (body) => {
   if (typeof body === 'string') {
@@ -44,7 +44,7 @@ export default class HttpClient {
     }
 
     execute() {
-      return fetch(this.mediaUrl ? this.url : (baseApiUrl + this.url), {
+      return fetch(this.mediaUrl ? HTTP_BACKEND_URL + this.url : (HTTP_BACKEND_URL + baseApiUrl + this.url), {
         headers: this.headersValue,
         method: this.methodvalue,
         body: this.bodyValue,

@@ -5,6 +5,7 @@ import { Field, Form } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import loginApi from '../../network/apis/loginApi';
 import pirateShip from '../../img/pirateShip.png';
+import {HOME_PAGE_ROUTE, LOGIN_PAGE_ROUTE, REGISTER_PAGE_ROUTE} from '../../const';
 
 type Props = {
   history: any,
@@ -12,11 +13,13 @@ type Props = {
 
 class Register extends React.Component<Props> {
   onSubmit = (values) => {
+    const { history } = this.props;
     const login = { username: values.login, password: values.password, email: '' };
     loginApi.register(login)
       .then((response) => response.json())
       .then((json) => {
         localStorage.setItem('token', json.token);
+        history.push(HOME_PAGE_ROUTE)
       })
       .catch((error) => {
         console.log(`error: ${error}`);
@@ -24,6 +27,7 @@ class Register extends React.Component<Props> {
   };
 
   render() {
+    const { history } = this.props;
     return (
       <div className="page">
         <div className="page-content">
@@ -109,6 +113,13 @@ class Register extends React.Component<Props> {
                             && (formRenderProps.values.confirmPassword !== formRenderProps.values.password)}
                           >
                             {I18n.t('register.LETS_GO')}
+                          </button>
+                          <button
+                            className="button secondary classic-text"
+                            type="button"
+                            onClick={() => history.push(LOGIN_PAGE_ROUTE)}
+                          >
+                            {I18n.t('register.GO_TO_LOGIN')}
                           </button>
                         </div>
                       </div>

@@ -94,15 +94,15 @@ CORS_ORIGIN_ALLOW_ALL = True
 ASGI_APPLICATION = "backend.routing.application"
 
 CHANNEL_LAYERS = {
-    "default": {
-       "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
     # "default": {
-    #     "BACKEND": "channels_redis.core.RedisChannelLayer",
-    #     "CONFIG": {
-    #         "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-    #     },
-    # },
+    #    "BACKEND": "channels.layers.InMemoryChannelLayer"
+    # }
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+    },
 }
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -116,10 +116,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
-
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
+# DATABASES['default']['CONN_MAX_AGE'] = 500
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -157,4 +156,8 @@ USE_TZ = True
 STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+DATABASES['default'] = dj_database_url.config()
+
+django_heroku.settings(locals())
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { I18n } from 'react-redux-i18n';
+import { HTTP_BACKEND_URL } from '../../../const';
 
 type Props = {
     contentType: string | undefined,
@@ -13,7 +14,7 @@ function FilePreview({ contentType, fileUrl }: Props) {
         return (
           <audio
             controls
-            src={fileUrl}
+            src={HTTP_BACKEND_URL + fileUrl}
           >
             {I18n.t('preview.AUDIO')}
           </audio>
@@ -21,13 +22,13 @@ function FilePreview({ contentType, fileUrl }: Props) {
       case 'video/mp4':
         return (
           <video controls className="preview">
-            <source src={fileUrl} type="video/mp4" />
+            <source src={HTTP_BACKEND_URL + fileUrl} type="video/mp4" />
             {I18n.t('preview.VIDEO')}
           </video>
         );
       default:
         return (
-          <img src={fileUrl} alt="preview" className="preview" />
+          <img src={HTTP_BACKEND_URL + fileUrl} alt="preview" className="preview" />
         );
     }
   }
